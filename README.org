@@ -1,0 +1,66 @@
+#+TITLE:  Zsh dotfiles
+#+AUTHOR: Xavier Garrido
+#+DATE:   2019-12-28
+#+OPTIONS: toc:nil num:nil ^:nil
+
+* Introduction
+This =zsh= plugin manages my personal dotfiles.
+
+The latest version is at http://github.com/xgarrido/zsh-dotfiles.
+
+* Installation
+You will need to install first the [[https://github.com/xgarrido/zsh-pkgtools][=pkgtools=]] plugin which is a small zsh library providing useful
+function such as colored text...
+
+There are different way to install this plugin :
+** In your =~/.zshrc=
+1) Download the script or clone this repository:
+   #+BEGIN_SRC shell
+     git clone git://github.com/xgarrido/zsh-dotfiles.git
+   #+END_SRC
+
+2) Source this script *at the end* of =~/.zshrc=:
+   #+BEGIN_SRC shell
+     source /path/to/zsh-dotfiles/zsh-dotfiles.plugin.zsh
+   #+END_SRC
+
+3) Source =~/.zshrc= to take changes into account:
+   #+BEGIN_SRC shell
+     source ~/.zshrc
+   #+END_SRC
+
+** With [[https://github.com/zsh-users/antigen][antigen]] (recommended way)
+Add the following line into your =~/.zshrc= file:
+#+BEGIN_SRC shell
+  antigen bundle xgarrido/zsh-dotfiles
+#+END_SRC
+
+* Inside =dotfiles=
+
+The dotfiles are stored within the =dotfiles= directory and include (non exhaustive list)
+
+- Shell environment
+  - [[file:dotfiles/zshrc][zshrc]] :: zsh use =antigen= zsh bundle which is reponsible for downloading and
+       loading different zsh plugins
+  - [[file:dotfiles/bashrc][bashrc]] :: bash (not used anymore)
+  - [[file:dotfiles/profiles][profiles]] :: defines =PATH= variable and other environment variables
+  - [[file:dotfiles/toprc][toprc]] :: fancy colors for =top= command (discarded in profit of =glances= python package)
+
+- X11 settings
+  - [[file:dotfiles/Xdefaults][Xdefaults]] :: it mainly contains some Xft antialias stuff and define =emacs=
+       default font
+
+- Individual tool configurations
+  - [[file:gitconfig][gitconfig]] :: =git= mail and name configuration
+  - [[file:latexmkrc][latexmkrc]] :: setup for =latexmk=
+
+- Application configuration
+  - [[file:dotfiles/config/openbox/][openbox]] :: =openbox= configuration files
+  - [[file:dotfiles/config/terminator][terminator]] :: =terminator= terminal
+  - [[file:dotfiles/config/dunst][dunst]] :: =dunst= notification system (much better than =libnotify=)
+  - [[files:dotfiles/config/matplotlib][matplotlib]] :: =matplotlib= configuration files
+  - [[files:dotfiles/config/root][root]] :: =ROOT= CERN configuration files
+
+** Misc.
+- [[file:fonts][fonts]] :: directory that holds additionnal fonts
+- [[file:bin][bin]] :: binaries directory
