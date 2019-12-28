@@ -77,6 +77,7 @@ function dotfiles()
             pkgtools::msg_error "The command 'make ${mode} fails!"
             pkgtools::at_function_exit
             return 1
+        fi
     )
 
     pkgtools::at_function_exit
