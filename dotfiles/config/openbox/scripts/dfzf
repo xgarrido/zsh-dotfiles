@@ -1,0 +1,28 @@
+#!/bin/zsh
+
+if (( $+commands[fzf] )); then
+    if (( $+commands[ag] )); then
+        export FZF_DEFAULT_COMMAND='ag -g ""'
+    fi
+    export FZF_DEFAULT_OPTS='--reverse --prompt="λ "
+    --color=bg+:#2d2d2d,bg:#2d2d2d,spinner:#d33682,hl:#b58900
+    --color=fg:#ffffff,header:#ffffff,info:#d33682,pointer:#859900
+    --color=marker:#859900,fg+:#00629d,prompt:#268bd2,hl+:#859900
+    '
+    local mode=$1
+    if [[ $mode = open ]]; then
+        cd ~
+        local out file key
+        IFS=$'\n' out=$(fzf --exit-0 --expect=ctrl-o,ctrl-e)
+        key=$(head -1 <<< "$out")
+        file=$(head -2 <<< "$out" | tail -1)
+        if [ -n "$file" ]; then
+            [ "$key" = ctrl-e ] && ec "$file" || eval "xdg-open \"$file\"" &
+        fi
+    elif [[ $mode = exec ]]; then
+        local out
+        IFS=$'\n' out=$(echo $commands | tr ' ' '\n' | sed 's!.*/!!' | sort | fzf)
+        echo "Running $out..."
+        eval $out &
+    fi
+fi

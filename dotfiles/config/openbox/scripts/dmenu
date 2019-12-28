@@ -1,0 +1,24 @@
+#!/bin/bash
+
+dopts="-p λ -c -lr 4 -d 0.3 -nb \"#2F343F\" -sb \"#5294E2\" -fn \"Ubuntu Mono for Powerline-11\""
+
+case $1 in
+    path)
+        eval dmenu_run ${dopts} -sb \"#E84A5F\"
+    ;;
+    files)
+        home_cache=/tmp/home.cache
+        if [ ! -f ${home_cache} ]; then
+            find $HOME -type f ! \( -regex '.*/\(.Maildir\|.cache\|.dropbox-dist\|.*.fold\|__pycache__\|.emacs.d/tmp\)/.*?$' -prune \) > ${home_cache}
+        fi
+        file=$(cat ${home_cache} | eval dmenu ${dopts} -l 10 -lr 2)
+        if [ ! -z ${file} ]; then
+            xdg-open $file &
+            if [ $? -ne 0 ]; then
+                nautilus $(basename $file) &
+            fi
+        fi
+    ;;
+    *)
+        notify-send -u critical -t 5000 "dmenu" "Missing paremeter!"
+esac

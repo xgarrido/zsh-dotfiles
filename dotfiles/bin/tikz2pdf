@@ -1,0 +1,220 @@
+#!/usr/bin/env python2.7
+#
+# Copyright (c) 2007, Hans Meine <hans_meine@gmx.net>
+#  All rights reserved.
+#
+# This is licensed according to the new BSD license.
+# Please send patches / comments, I would be happy about any feedback.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+#
+# * Redistributions of source code must retain the above copyright
+#   notice, this list of conditions and the following disclaimer.
+#
+# * Redistributions in binary form must reproduce the above copyright
+#   notice, this list of conditions and the following disclaimer in the
+#   documentation and/or other materials provided with the distribution.
+#
+# * Neither the name of the University of Hamburg nor the names of its
+#   contributors may be used to endorse or promote products derived from
+#   this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+# FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+# COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+# INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+# BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+# CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+# ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+
+import sys, os.path, subprocess, glob, time, optparse, tempfile, re
+
+def send_message (message, icon='gtk-info', quiet=False):
+        if not quiet:
+                print message
+                subprocess.Popen(['notify-send', "tikz2pdf", message, "-i", icon])
+                # notice = pynotify.Notification("tikz2pdf", message, icon)
+                # notice.show()
+        return
+
+op = optparse.OptionParser(usage="%prog [options] foo.tikz")
+op.add_option("-v", "--verbose", action = "store_true", default = False,
+              dest = "verbose", help = "verbose output")
+op.add_option("-s", "--view", action = "store_true",
+              dest = "view", default = False,
+              help = "start viewer after first successful compilation")
+op.add_option("-o", "--once", action = "store_true",
+              dest = "once", default = False,
+              help = "run it one time")
+op.add_option("--helvetica", action = "store_true",
+              dest = "helvetica", default = False,
+              help = "use helvetica font")
+op.add_option("--root-improvements", action = "store_true",
+              dest = "root", default = False,
+              help = "apply some tweaks to improve rendering from ROOT pictures")
+op.add_option("--png", action = "store_true",
+              dest = "png", default = False,
+              help = "also produce PNG image")
+op.add_option("--xkcd", action = "store_true",
+              dest = "xkcd", default = False,
+              help = "produce a plot using xkcd style")
+op.add_option("-q", "--quiet", action = "store_true",
+              dest = "quiet", default = False,
+              help = "run without any kind of popup notification")
+
+options, args = op.parse_args()
+tikzName, = args # exactly one filename expected
+try:
+        with open(tikzName): pass
+except IOError:
+        send_message('File ' + tikzName + ' does not exist', 'gtk-stop')
+        sys.exit()
+
+basename = os.path.splitext(tikzName)[0]
+
+tmpName = basename + '.tmp'
+texName = basename + '.ttex'
+pdfName = basename + '.pdf'
+
+def generate_tmp_file():
+        tmp = open(tmpName, 'w')
+        with open(tikzName, 'rw+') as f:
+                lines_seen = set()
+                for line in f:
+                        #newline = line.replace('_', '-')
+                        newline = line
+                        if options.root:
+                                newline = newline.replace(',mark size=1pt','')
+                        if options.xkcd:
+                                newline = newline.replace('\\begin{tikzpicture}','\\begin{tikzpicture}[decoration={random steps,segment length=1mm,amplitude=0.2pt}]')
+                        if not re.match(r'.*\\draw', newline) or not newline in lines_seen:
+                                if re.match(r'.*\$\$', newline):
+                                        newline = re.sub(r'\$(.*)\$', r'\1', newline)
+                                tmp.write(newline)
+                                # lines_seen.add(newline)
+        tmp.close()
+        if options.xkcd:
+                ec = subprocess.call(['sed', '-i', '-e', '/^\\\\draw/s/\]/,decorate,thick]/', tmpName])
+
+def generate_template():
+        template = r"""
+        \nonstopmode
+        """
+        if options.png:
+                template +=r"""
+                \documentclass[convert]{standalone}
+                """
+        else:
+                template +=r"""
+                \documentclass{standalone}
+                """
+        template += r"""
+        \usepackage{lmodern}
+        \usepackage[eulergreek]{sansmath}
+        \usepackage{tikz,tikz-3dplot,circuitikz,nicefrac,amsmath,amssymb,pifont,units,xspace}
+        \usetikzlibrary{positioning,snakes,backgrounds,patterns,matrix,shapes,fit,calc,shadows,plotmarks,spy,trees,decorations.markings}
+
+        \usepackage{pgfplots}
+        \usepackage{pgfplotstable}
+        \usepgfplotslibrary{polar}
+        \usetikzlibrary{pgfplots.groupplots,external}
+%%        \tikzexternalize
+        \usepackage{upgreek}
+	\usepackage{comment}
+	\usepackage{multirow}
+	\usepackage{relsize}
+	\usepackage{etoolbox}
+	\usepackage{esvect}
+	\usepackage[detect-family,separate-uncertainty=true]{siunitx}
+	\sisetup{text-sf=\sansmath}
+        \usepackage{fontspec}
+	\usepackage{xunicode}
+        \setmonofont[Scale=0.9]{Inconsolata}
+        """
+        if options.xkcd:
+                template += r"""
+                \usepackage{mathspec}
+                \setmainfont{Humor Sans}
+                \setsansfont{Humor Sans}
+                \setmathsfont(Digits,Latin,Greek)[Numbers={Lining,Proportional}]{Humor Sans}
+                """
+        if options.helvetica:
+                template += r"""
+                \usepackage[T1]{fontenc}
+                \usepackage[scaled]{helvet}
+                \renewcommand*\familydefault{\sfdefault}
+                """
+        template += r"""
+        \begin{document}
+        \sf
+        \sansmath
+        \input{%s}
+        \end{document}
+        """
+        file(texName, 'w').write(template % tmpName)
+
+def verboseUnlink(filename):
+	# FIXME: check mtime
+	if options.verbose:
+		print "cleaning up %r..." % filename
+	try:
+		os.unlink (filename)
+	except OSError, e:
+		if e.errno != 2:
+			raise e
+
+viewer = None
+# re-use texdoc's configuration variables for viewing TeX's output:
+viewCommand = "evince %r"
+texdocViewCommand = os.environ.get("TEXDOCVIEW_pdf", None)
+if texdocViewCommand:
+        viewCommand = texdocViewCommand.rstrip("&").replace("%s", "%r")
+
+previous = 0
+while True:
+	try:
+		mtime = os.path.getmtime(tikzName)
+		if mtime > previous:
+			out = None
+                        if not options.once:
+                                send_message("Processing %r file" % tikzName, quiet=options.quiet)
+                        generate_tmp_file()
+                        generate_template()
+			if not options.verbose:
+				out = tempfile.TemporaryFile()
+                                ec = subprocess.call(
+                                        ["latexmk", "-xelatex", "-shell-escape", "-halt-on-error", texName], stdout = out)
+                                if ec:
+                                        if out:
+                                                out.seek(0)
+                                                sys.stdout.write(out.read())
+                                                send_message("Error generating %r." % pdfName, "gtk-stop", options.quiet)
+                                else:
+                                        send_message("Successfully generated %r." % pdfName, quiet=options.quiet)
+                                        if options.view and viewer is None:
+                                                print "tikz2pdf: starting viewer..."
+                                                viewer = subprocess.Popen(viewCommand % pdfName, shell = True)
+                                if out:
+                                        out.close()
+
+                                previous = mtime
+                                if options.once:
+                                        break
+		time.sleep(1)
+	except KeyboardInterrupt:
+                break
+
+verboseUnlink(texName)
+verboseUnlink(tmpName)
+for temp in glob.glob("tikz2pdf_temp.*"):
+	if temp != pdfName:
+		verboseUnlink(temp)
+for ext in (".aux", ".log", ".pgf-plot.gnuplot", ".pgf-plot.table", ".auxlock", ".fls", ".fdb_latexmk", ".xdv"):
+	verboseUnlink(basename + ext)

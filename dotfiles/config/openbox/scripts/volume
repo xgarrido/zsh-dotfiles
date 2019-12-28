@@ -1,0 +1,35 @@
+#!/bin/bash
+
+if [ $1 = 'up' ]; then
+    amixer set Master 5%+
+elif [ $1 = 'down' ]; then
+    amixer set Master 5%-
+elif [ $1 = 'mute' ]; then
+    amixer set Master toggle
+else
+    echo "Unknown control command: $1" >&2
+    exit 1
+fi
+
+VOLUME=$(amixer sget Master | sed '/.*Left: /{s/^.*\[\(.*\)%\].*/\1/;p;};d;')
+STATUS=$(amixer sget Master | awk '$0 ~ "Left:" { print $NF; }')
+
+if [ $STATUS = '[off]' ]; then
+    ICON=audio-volume-muted-blocked-panel
+    msg="Switch off"
+    priority=critical
+else
+    if [ $VOLUME -eq 0 ]; then
+        ICON=audio-volume-off
+    elif [ $VOLUME -lt 33 ]; then
+        ICON=audio-volume-low
+    elif [ $VOLUME -lt 66 ]; then
+        ICON=audio-volume-medium
+    else
+        ICON=audio-volume-high
+    fi
+    msg="Current level"
+    priority=normal
+fi
+# VOLUME="${VOLUME}%"
+notify-send "Volume" "${msg}" -h int:value:${VOLUME} -i $ICON -t 1000 -u ${priority}

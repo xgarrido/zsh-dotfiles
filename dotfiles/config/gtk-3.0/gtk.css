@@ -1,0 +1,36 @@
+.terminator-terminal-window notebook tab {
+    background-color: #2F343F;
+    color: white;
+    padding: 0.5em;
+    border: none;
+    /* border-width: 0px; */
+}
+
+.terminator-terminal-window notebook {
+    border: none;
+}
+
+.terminator-terminal-window notebook tab:checked {
+    background-color: #5294E2;
+}
+
+.terminator-terminal-window notebook tab button {
+    padding: 0;
+    background-color: transparent;
+    color: white;
+}
+
+.terminator-terminal-window notebook header {
+    background-color: #2F343F;
+}
+
+VteTerminal, vte-terminal {
+    padding: 0px;
+}
+
+.terminator-terminal-window paned separator {
+    background-color: #2F343F;
+    background-image: none;
+    min-height: 2px;
+    min-width: 2px;
+}

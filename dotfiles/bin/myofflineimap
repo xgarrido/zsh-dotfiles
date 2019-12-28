@@ -1,0 +1,44 @@
+#!/bin/zsh
+
+account=
+kill=false
+while [ -n "$1" ]; do
+    token="$1"
+    if [[ ${token} == "-a" ]]; then
+        shift 1
+        account=$1
+    elif [[ ${token} == "-k" ]]; then
+        kill=true
+    fi
+    shift 1
+done
+
+# pid_store=/tmp/myofflineimap.pid
+# if ${kill}; then
+# fi
+
+/usr/bin/offlineimap $@
+if [ $? -ne 0 ]; then
+    notify-send -i mail-message -u critical "error" "offlineimap check fails!"
+else
+    accounts=( LAL )
+    if [ ! -z ${account} ]; then
+        accounts=( ${account} )
+    fi
+
+    for acc in ${accounts}; do
+        checkdir="/home/garrido/.Maildir/$acc/inbox/new"
+        mails=($(find $checkdir -mmin -1 -a -type f))
+        if (( ${#mails[@]} > 4 )); then
+            notify-send -i mail-message-new "${acc} account" "${#mails[@]} mails unread"
+        else
+            for m in $mails; do
+                #mu view $f
+                content=$(mu view $m)
+                from=$(echo $content | grep '^From:' | sed -e 's/^From: \(.*\)<.*/\1/' -e 's/^From: //')
+                subject=$(echo $content | grep '^Subject:' | sed 's/Subject://')
+                notify-send -i mail-message-new "${subject}" "from <b>${from}</b>"
+            done
+        fi
+    done
+fi

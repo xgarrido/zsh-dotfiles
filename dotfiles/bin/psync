@@ -1,0 +1,78 @@
+#!/usr/bin/env python
+# Copyright (C) 2014  Xavier Garrido <garrido@lal.in2p3.fr>
+#
+# psync is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free
+# Software Foundation; either version 2.1 of the License, or (at your option)
+# any later version.
+#
+# Paramiko is distrubuted in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+# A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more
+# details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with Paramiko; if not, write to the Free Software Foundation, Inc.,
+# 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA.
+
+import time
+import argparse
+import os.path
+import sys
+import subprocess
+import tempfile
+
+def send_message (message, icon='stock_dialog-info'):
+    """Basic function to send popup notification"""
+    print (message)
+    subprocess.call ('notify-send -t 5000 -i ' + icon + ' "psync" "' + message +'"', shell=True)
+
+def main ():
+    parser = argparse.ArgumentParser (description = 'A python script for running a background task while a file is changing')# ,
+                                      # usage='%(prog)s [FILE]')
+    parser.add_argument ('--verbose', default=False,
+                         help='verbose logging')
+    parser.add_argument ('-c', '--command', default='',
+                         help='set command to be run')
+    parser.add_argument ('-o', '--once', default=False,
+                         help='only run command one time')
+    parser.add_argument ('filename', default='',
+                         help='file to look for time changes')
+    options = parser.parse_args ()
+    try:
+            with open (options.filename): pass
+    except IOError:
+            send_message ('File ' + options.filename + ' does not exist', 'stock_dialog-error')
+            sys.exit ()
+
+    previous = 0
+    while True:
+        try:
+            mtime = os.path.getmtime (options.filename)
+            if mtime > previous:
+                out = None
+                send_message ('Change in %r file' % options.filename)
+                if not options.verbose:
+                    out = tempfile.TemporaryFile ()
+                    ec = subprocess.call (options.command, shell=True, stdout=out)
+                if ec:
+                    if out:
+                        out.seek (0)
+                        sys.stdout.write (out.read ())
+                    send_message ("Error generating command %r" % options.command, 'stock_dialog-error')
+                else:
+                    send_message ("Successfully generating command %r" % options.command)
+                if out:
+                    out.close()
+
+                previous = mtime
+                if options.once:
+                    break
+            time.sleep(1)
+        except KeyboardInterrupt:
+            break
+# script:
+if __name__ == '__main__':
+    main ()
+
+# end of psync

@@ -1,0 +1,80 @@
+#!/bin/bash
+usage="
+Usage: git get [options] [path]
+
+git-get tries to mimic what go get does for go routine i.e. to clone the git
+repository into a given directory with an hierarchy tree as follow :
+
+<git directory>/<git hosting service>/<git username>/<git repository>
+
+For instance, if you want to clone https://github.com/mbostock/d3, you can
+either do
+
+git get https://github.com/mbostock/d3 or git get github.com/mbostock/d3
+
+The [path] can be a complete git path or a shorter version like
+github.com/user/repository. The possible [options] are:
+
+  -h, --help             show this help text
+  -u, --update           update existing repository
+  -o, --output-directory set the directory where to clone
+  -f, --force-https      force the use of https address
+"
+
+gitdirectory=~/Development
+gitaddress=
+gitupdate=false
+forcehttps=false
+while [ -n "$1" ]; do
+    token="$1"
+    if [[ $token == "--help" || $token == "-h" ]]; then
+        echo "$usage"
+    elif [[ $token == "--update" || $token == "-u" ]]; then
+        gitupdate=true
+    elif [[ $token == "--force-https" || $token == "-f" ]]; then
+        forcehttps=true
+    elif [[ $token == "--output-directory" || $token == "-o" ]]; then
+        shift 1
+        gitdirectory=$1
+    else
+        gitaddress=$token
+    fi
+    shift
+done
+
+if [ -z $gitaddress ]; then
+    echo "ERROR: Missing address!"
+    exit 1
+fi
+
+# Parse address
+dir=
+if [[ $gitaddress == *git@* ]]; then
+    dir+=$(echo ${gitaddress} | sed -e 's/git@//' -e 's/\.git//' -e 's/:/\//')
+elif [[ $gitaddress == *git://* ]]; then
+    dir+=$(echo ${gitaddress} | sed -e 's/git:\/\///' -e 's/\.git//')
+elif [[ $gitaddress == *https* ]]; then
+    dir+=$(echo ${gitaddress} | sed -e 's/https:\/\///' -e 's/\.git//')
+    if ! ${forcehttps}; then
+        gitaddress=git@${dir/\//:}.git
+    fi
+else
+    dir=$gitaddress
+    gitaddress=git@${gitaddress/\//:}.git
+fi
+
+# Check address validity
+if ! $(git ls-remote $gitaddress > /dev/null 2>&1); then
+    echo "ERROR: git repository '$gitaddress' does not exist!"
+    exit 1
+fi
+
+# Clone git repository
+dir=$gitdirectory/$dir
+mkdir -p $dir
+cd $dir
+if [[ -d $dir/.git && $gitupdate ]]; then
+    git pull
+else
+    git clone $gitaddress .
+fi

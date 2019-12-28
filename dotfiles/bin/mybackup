@@ -1,0 +1,104 @@
+#!/bin/zsh -i
+#-*- mode: shell-script; -*-
+#
+# Copyright (C) 2015 Xavier Garrido
+#
+# Author: garrido@lal.in2p3.fr
+# Keywords: backup, rsync
+# Requirements: pkgtools
+# Status: not intended to be distributed yet
+
+# Set logging default values
+pkgtools::default_values
+
+while [ -n "$1" ]; do
+    token="$1"
+    if [[ ${token} == "-h" || ${token} == "--help" ]]; then
+        return 0
+    elif [[ ${token} == "-d" || ${token} == "--debug" ]]; then
+	pkgtools::msg_using_debug
+    elif [[ ${token} == "-D" || ${token} == "--devel" ]]; then
+	pkgtools::msg_using_devel
+    elif [[ ${token} == "-v" || "${token}" == "--verbose" ]]; then
+	pkgtools::msg_using_verbose
+    elif [[ ${token} == "-W" || "${token}" == "--no-warning" ]]; then
+	pkgtools::msg_not_using_warning
+    elif [[ ${token} == "-q" || "${token}" == "--quiet" ]]; then
+	pkgtools::msg_using_quiet
+	export PKGTOOLS_MSG_QUIET=1
+    elif [[ ${token} == "--source" ]]; then
+        shift 1
+        source="$1"
+    elif [[ ${token} == "--destination" ]]; then
+        shift 1
+        destination="$1"
+    elif [[ ${token} == "--profile" ]]; then
+        shift 1
+        profile="$1"
+    fi
+    shift 1
+done
+
+exclude_list=$(mktemp)
+cat << EOF > ${exclude_list}
+Development/docker.d
+.cache/
+.ccache/
+.dropbox-dist
+*.so
+*.o
+*.elc
+*.pyc
+._sync_*
+.owncloudsync.log
+build/
+install/
+EOF
+
+if [ ! -z ${profile} ]; then
+    source="/home/garrido/"
+    if [[ ${profile} == "usb" ]]; then
+        pkgtools::msg_notice "Running backup into USB device"
+        notify "Running backup into USB device"
+        if [ ! -d /run/media/garrido/backup ]; then
+            pkgtools::msg_error "USB device not connected !"
+            return 1
+        fi
+        [ -z ${destination} ] && destination="/run/media/${USER}/backup"
+        cat << EOF >> ${exclude_list}
+.mu/
+.Maildir/
+brew/
+PAO.tar.gz
+NA61.tar.gz
+Public/
+EOF
+    elif [[ ${profile} == "lal" ]]; then
+        pkgtools::msg_notice "Running backup into LAL disk"
+        notify-send -u normal "mybackup" "Running backup into LAL disk"
+        # if ! $(pkgtools::at_lal); then
+        #     pkgtools::msg_error "Computer not locally connected to LAL !"
+        #     return 1
+        # fi
+        [ -z ${destination} ] && destination="garrido@lx3.lal.in2p3.fr:/exp/nemo/garrido/newbackup"
+    else
+        pkgtools::msg_error "Profile '$profile' is not know !"
+        return 1
+    fi
+else
+    if [[ -z ${destination} || -z ${source} ]]; then
+        pkgtools::msg_error "Missing 'source' and/or 'destination' directories !"
+        return 1
+    fi
+    [ ! -d ${destination} ] && mkdir -p ${destination}
+    [ ! -d ${source} ] && mkdir -p ${source}
+    pkgtools::msg_notice "Starting backup from ${source} to ${destination}..."
+    notify-send -u low "mybackup" "Starting backup from ${source} to ${destination}..."
+fi
+
+rsync-synchronize --exclude-from ${exclude_list} --delete-excluded ${source} ${destination}
+if $(pkgtools::last_command_fails); then
+    notify-send -u critical -t 0 "mybackup" "Backup @ ${profile} fails !"
+    exit 1
+fi
+notify-send -u normal -t 0 "mybackup" "Backup @ ${profile} sucessfully finished"

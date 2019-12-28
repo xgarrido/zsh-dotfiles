@@ -1,0 +1,142 @@
+#!/bin/bash
+
+appname="wifi-pipe"
+
+[[ -z "$PROFILE_DIR" ]] && PROFILE_DIR='/etc/network.d/'
+
+function notify ()
+{
+    local icon="stock_dialog-info"
+    case $1 in
+	info)
+	    icon="stock_dialog-info"
+	    ;; 
+	warning)
+	    icon="stock_dialog-warning"
+	    ;; 
+	error)
+	    icon="stock_dialog-error"
+	    ;;
+    esac
+    sudo -u garrido notify-send -t 2000 -i ${icon} "${appname}" "$2"
+    return 0
+}
+
+function create_profile () 
+{
+  local essid="$1" interface="$2" security="$3" key="$4"
+  local profile_file="$PROFILE_DIR/$essid"
+
+  cat > "$profile_file" << EOF
+CONNECTION="wireless"
+ESSID="$essid"
+INTERFACE="$interface"
+DESCRIPTION="Automatically generated profile"
+SCAN="yes"
+IP="dhcp"
+TIMEOUT="10"
+SECURITY="$security"
+EOF
+
+  if [[ -n "$key" ]]; then
+    echo "KEY=\"$key\"" >> "$profile_file"
+    chmod 600 "$profile_file"
+  else
+    chmod 644 "$profile_file"
+  fi
+
+  echo "$profile_file"
+}
+ 
+# prints the actual xml based on the scan
+function print_menu ()
+{
+  local essid security quality
+
+  local awkscript='BEGIN { FS=":"; OFS="="; }
+    /\<Cell/              { if (essid) print essid, security, quality[2]/quality[3]*100; security="none" }
+    /\<ESSID:/            { essid=substr($2, 2, length($2) - 2) } # discard quotes
+    /\<Quality=/          { split($1, quality, "[=/]") }
+    /\<Encryption key:on/ { security="wep" }
+    /\<IE:.*WPA.*/        { security="wpa" }
+    END { if (essid) print essid, security, quality[2]/quality[3]*100 }'
+
+  iwlist $interface scan 2>/dev/null | awk "$awkscript" | sort -t= -nrk3 > /tmp/networks.tmp
+  if [[ ! -s /tmp/networks.tmp ]]; then 
+    rm /tmp/networks.tmp
+    notify warning "No networks found"
+    echo "<openbox_pipe_menu>"
+    echo "<item label=\"No networks found\"/>"
+    echo "</openbox_pipe_menu>"
+    return 0
+  fi
+
+  echo "<openbox_pipe_menu>"
+  # echo "<menu id=\"new_connect\" label=\"New connections\">"
+  while IFS='=' read -r essid security quality; do
+    echo "<item label=\"$essid ($security) ${quality/.*/}%\">" # trim decimals
+    echo "  <action name=\"Execute\">"
+    # Test if the profile already exists
+    test -f "$PROFILE_DIR/$essid"
+    if [ $? -ne 0 ]; then
+      echo "    <command>sudo $0 $interface connect \"$essid\"</command>"
+    else
+      echo "    <command>sudo /usr/bin/netcfg up \"$essid\"</command>"
+    fi
+    echo "  </action>"
+    echo "</item>"
+  done < /tmp/networks.tmp
+  # echo "</menu>"
+  echo "</openbox_pipe_menu>"
+}
+
+function connect() 
+{
+  local essid="$1" profile_file profile security key
+
+  # check for an existing profile
+  profile_file="$(grep -REl "ESSID=[\"']?$essid[\"']?" "$PROFILE_DIR" | grep -v '~$' | head -1)"
+
+  if [[ -n "$profile_file" ]]; then
+    profile="$(basename "$profile_file")"
+  else
+    profile="$essid"
+    security="$(awk -F '=' "/$essid/"'{print $2}' /tmp/networks.tmp | head -n 1)"
+
+    if [[ "$security" != 'none' ]]; then
+      if ! key=$(zenity --entry --title="Authentication" --text="Please enter $security key for $essid"); then
+        exit 1 # user cancelled.
+      fi
+    fi
+
+    profile_file="$(create_profile "$essid" "$interface" "$security" "$key")"
+  fi
+
+  /usr/bin/netcfg down "$profile" 
+  if ! /usr/bin/netcfg up "$profile" > /tmp/output.tmp; then
+    # connect failed, ask about removal of created profile
+    if zenity --question --title="Connection failed" \
+              --text="$(grep -Eo "[\-\>]\ .*$" /tmp/output.tmp) \n Remove $profile_file?" \
+              --ok-label="Remove profile"; then
+
+      rm "$profile_file"
+    fi
+  else
+      notify info "Connection to $essid done"
+  fi
+
+  rm /tmp/output.tmp
+  rm /tmp/networks.tmp
+}
+
+[[ $(id -u) -ne 0 ]] && notify error "ROOT access required" && exit 1
+[[ -z "$1"        ]] && notify error "Usage: wifi-pipe <interface> [ connect <essid> ]" && exit 1
+
+interface="$1"; shift
+
+if ! ip link show | grep -q $interface; then
+  ip link set $interface up &>/dev/null || errorout "$interface not up"
+  while ! ip link show | grep -q $interface; do sleep 1; done
+fi
+
+[[ "$1" = 'connect' ]] && connect "$2" || print_menu

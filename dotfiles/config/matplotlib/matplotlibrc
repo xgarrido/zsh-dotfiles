@@ -1,0 +1,22 @@
+backend               : tkagg
+# text.usetex         : True
+# text.latex.unicode  : True
+# text.latex.preamble : \usepackage{sfmath}
+# font.family         : monospace
+# font.serif          : Times, Palatino, New Century Schoolbook, Bookman, Computer Modern Roman
+# font.sans-serif     : Helvetica, Avant Garde, Computer Modern Sans serif
+# font.cursive        : Zapf Chancery
+# font.monospace      : Inconsolota, Courier, Computer Modern Typewriter
+
+# axes.titlesize      : xx-large
+# axes.labelsize      : larger
+
+axes.facecolor        : (1,1,1,0)
+#axes.alpha            : 0.1
+
+savefig.transparent   : True    # setting that controls whether figures are saved with a
+                                # transparent background by default
+legend.frameon        : False  # if True, draw the legend on a background patch
+
+# xtick.top             : True   # draw ticks on the top side
+# ytick.right           : True   # draw ticks on the right side

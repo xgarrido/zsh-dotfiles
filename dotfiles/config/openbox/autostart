@@ -1,0 +1,21 @@
+#
+# These things are run when an Openbox X Session is started.
+# You may place a similar script in $HOME/.config/openbox/autostart
+# to run user-specific things.
+#
+# Set layout 4x2 grid desktop
+/home/garrido/.config/openbox/scripts/setlayout 0 4 2 0
+# Set keyboard map
+setxkbmap -layout fr &
+# Disable beep
+xset -b &
+# Set wallpaper
+/home/garrido/.config/openbox/scripts/change-wallpaper &
+# Launch tint
+#tint2 &
+# Swap Caps_Lock and Escape keys
+xmodmap /home/garrido/.Xmodmap &
+# Running devmon to mount/umount media
+devmon &
+# Running dunst to send notification
+dunst &

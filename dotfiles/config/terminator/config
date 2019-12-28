@@ -1,0 +1,60 @@
+[global_config]
+  always_split_with_profile = True
+  dbus = False
+  enabled_plugins = CustomCommandsMenu, InactivityWatch, ActivityWatch, TerminalShot, APTURLHandler, Logger
+  extra_styling = False
+  focus = system
+  handle_size = 2
+  inactive_color_offset = 0.654320987654
+  scroll_tabbar = True
+  suppress_multiple_term_dialog = True
+  tab_position = bottom
+  title_inactive_bg_color = "#fdf6e3"
+  title_inactive_fg_color = "#c0bebf"
+  title_transmit_bg_color = "#fdf6e3"
+  title_transmit_fg_color = "#c0bebf"
+[keybindings]
+  close_term = <Super>w
+  go_down = <Shift><Alt>Down
+  go_left = <Shift><Alt>Left
+  go_right = <Shift><Alt>Right
+  go_up = <Shift><Alt>Up
+  hide_window = <Super>semicolon
+  move_tab_left = <Shift><Control>Page_Down
+  move_tab_right = <Shift><Control>Page_Up
+  new_tab = <Ctrl><Shift>t
+  next_profile = <Alt>n
+  next_tab = <Primary><Alt>Right
+  prev_tab = <Primary><Alt>Left
+  previous_profile = <Alt>p
+  resize_down = <Ctrl><Alt>Down
+  resize_left = <Ctrl><Alt>Left
+  resize_right = <Ctrl><Alt>Right
+  resize_up = <Ctrl><Alt>Up
+  split_horiz = <Super>h
+  split_vert = <Super>j
+  toggle_zoom = F12
+  zoom_in = <Control>equal
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      profile = dark
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+[plugins]
+[profiles]
+  [[default]]
+    background_color = "#2f343f"
+    background_darkness = 0.79
+    copy_on_selection = True
+    cursor_color = "#268bd2"
+    font = Ubuntu Mono 9
+    foreground_color = "#ffffff"
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#708183:#002b36:#990a1b:#546e00:#7b6000:#00629d:#93115c:#00736f:#fdf6e3"
+    scrollback_infinite = True
+    scrollbar_position = hidden
+    show_titlebar = False
+    use_system_font = False

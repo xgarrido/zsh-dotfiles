@@ -1,0 +1,110 @@
+#!/bin/bash
+
+dir_wallpaper="/home/garrido/Images/Wallpapers"
+function use_random_wallpaper ()
+{
+    (
+        cd ${dir_wallpaper}
+        ./generate_random_filename.sh
+    )
+
+    local wallpaper=$(find "${dir_wallpaper}" -maxdepth 1 -mindepth 1 -type f -print0 -name "*.jpg" | \
+                             sort --zero-terminated --random-sort | sed 's/\d000.*//g')
+
+    ln -sf ${wallpaper} ${dir_wallpaper}/default
+
+    hsetroot -fill ${dir_wallpaper}/default &
+}
+
+function use_default_wallpaper ()
+{
+   hsetroot -fill /usr/share/backgrounds/antergos/early_morning_by_kylekc.jpg &
+}
+
+function use_solid_wallpaper ()
+{
+    hsetroot -solid "#839496"
+}
+
+function use_fading_wallpaper ()
+{
+    hour=$(date '+%H')
+    gamma=$(echo 1-$hour/24. + 0.3 | bc)
+    hsetroot -solid "#196684" -gamma $gamma
+}
+
+function set_pattern ()
+{
+    cat << EOF > $1
+#define bg_width 16
+#define bg_height 16
+static unsigned char bg_bits[] = {
+   0x99, 0x99, 0x33, 0x33, 0x66, 0x66, 0xcc, 0xcc, 0x99, 0x99, 0x33, 0x33,
+   0x66, 0x66, 0xcc, 0xcc, 0x99, 0x99, 0x33, 0x33, 0x66, 0x66, 0xcc, 0xcc,
+   0x99, 0x99, 0x33, 0x33, 0x66, 0x66, 0xcc, 0xcc};
+EOF
+
+}
+
+function use_random_pattern ()
+{
+    declare -a color_table=(
+        # "#7B6000"
+        # "#8B2C02"
+        # "#990A1B"
+        # "#93115C"
+        # "#3F4D91"
+        # "#00736F"
+        # "#546E00"
+        # "#565656"
+        # "#b58900"
+        # "#cb4b16"
+        # "#dc322f"
+        # "#d33682"
+        # "#6c71c4"
+        "#00629D"
+        "#268bd2"
+        "#0074D9"
+        # "#2aa198"
+        # "#859900"
+    )
+    local size=${#color_table[@]}
+
+    local bgbitmap=/tmp/bgbitmap
+    if [ ! -f ${bgbitmap} ]; then
+        set_pattern ${bgbitmap}
+    fi
+    local idx=$(shuf -i 0-$(( $size -1 )) -n 1)
+    if [[ ! -z $1 && $1 -lt $size ]]; then
+        idx=$1
+    fi
+    local bg="#2D2D2D"
+    local fg=${color_table[$idx]}
+    xsetroot -bitmap ${bgbitmap} -fg ${fg} -bg ${bg}
+}
+
+case $1 in
+    d|default)
+        use_default_wallpaper
+        ;;
+    p|pattern)
+        use_random_pattern $2
+        ;;
+    w|wallpaper)
+        use_random_wallpaper
+        ;;
+    f|fade)
+        use_fading_wallpaper
+        ;;
+    s|solid)
+        use_solid_wallpaper
+        ;;
+    *)
+        use_solid_wallpaper
+        ;;
+esac
+notify-send "Wallpaper changed"
+
+# Local Variables:
+# eval: (rainbow-mode)
+# End:

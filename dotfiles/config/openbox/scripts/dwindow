@@ -1,0 +1,40 @@
+#!/bin/bash
+
+resolution=$(xdpyinfo | grep 'dimensions:' | awk '{print $2}')
+width=$(echo $resolution | awk -F'x' '{print $1}')
+height=$(echo $resolution | awk -F'x' '{print $2}')
+case $1 in
+    left)
+        wmctrl -r :ACTIVE: -b add,maximized_vert && \
+            wmctrl -r :ACTIVE: -e 0,0,0,$(($width/2)),-1
+        ;;
+    right)
+        wmctrl -r :ACTIVE: -b add,maximized_vert && \
+            wmctrl -r :ACTIVE: -e 0,$(($width/2)),0,$(($width/2)),-1
+	;;
+    top-right)
+        wmctrl -r :ACTIVE: -e 0,$(($width/2)),0,$(($width/2)),$(($height/2))
+	;;
+    top-left)
+        wmctrl -r :ACTIVE: -e 0,0,0,$(($width/2)),$(($height/2))
+	;;
+    bottom-right)
+        wmctrl -r :ACTIVE: -e 0,$(($width/2)),$(($height/2)),$(($width/2)),$(($height/2))
+	;;
+    bottom-left)
+        wmctrl -r :ACTIVE: -e 0,0,$(($height/2)),$(($width/2)),$(($height/2))
+	;;
+
+    smart-left)
+        smart=20 #px
+        smartw=$(($width/2 - 2*$smart))
+        smarth=$(($height - 4*$smart))
+        wmctrl -r :ACTIVE: -e 0,$smart,$smart,$smartw,$smarth
+        ;;
+    smart-right)
+        smart=20 #px
+        smartw=$(($width/2 - 4*$smart))
+        smarth=$(($height - 4*$smart))
+        wmctrl -r :ACTIVE: -e 0,$(($width/2 + 2*$smart)),$smart,$smartw,$smarth
+        ;;
+esac

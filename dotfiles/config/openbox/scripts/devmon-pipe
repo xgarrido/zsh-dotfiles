@@ -1,0 +1,95 @@
+#!/bin/bash
+
+# An openbox menu for removable media (requires devmon from udevil package).
+#
+# This script will generate sub-menus for any device mounted
+# under /media. You can browse the device in a file manager or
+# unmount it.
+#
+# By default, this script uses the thunar file manager to browse the
+# media.
+
+appname="devmon-pipe"
+
+DIR=$(cd $(dirname "$0") && pwd)
+SCRIPT=$(basename "$0")
+NOTIFY="notify-send"
+FM_CMD="thunar"
+
+function notify ()
+{
+    local icon="stock_dialog-info"
+    case $1 in
+	info)
+	    icon="stock_dialog-info"
+	    ;;
+	warning)
+	    icon="stock_dialog-warning"
+	    ;;
+	error)
+	    icon="stock_dialog-error"
+	    ;;
+    esac
+    sudo -u garrido notify-send -t 2000 -i ${icon} "${appname}" "$2"
+    return 0
+}
+
+function pipemenu () {
+
+    cd /media
+    echo '<openbox_pipe_menu>'
+
+    for i in *
+    do
+	if [ "$i" != "*" ] && [[ ! "$i" =~ ^U3|cd|dvd|fl ]]; then
+	    echo "<item label=\"Browse $i\">"
+	    echo "<action name=\"Execute\">"
+	    echo "<execute>$FM_CMD /media/$i</execute>"
+	    echo "</action></item>"
+	    echo "<item label=\"Unmount $i\">"
+	    echo "<action name=\"Execute\">"
+	    echo "<command>sudo $DIR/$SCRIPT unmount /media/$i</command>"
+	    echo "</action></item>"
+	    echo "<separator/>"
+	fi
+    done
+
+     # echo "<item label=\"Eject CD/DVD\">"
+     # echo "<action name=\"Execute\">"
+     # echo "<execute>eject -T</execute>"
+     # echo "</action></item>"
+
+    echo "<item label=\"Remount all\">"
+    echo "<action name=\"Execute\">"
+    echo "<command>sudo $DIR/$SCRIPT remount</command>"
+    echo "</action></item>"
+
+    echo "<item label=\"Unmount all\">"
+    echo "<action name=\"Execute\">"
+    echo "<command>sudo $DIR/$SCRIPT unmount all</command>"
+    echo "</action></item>"
+
+    echo "</openbox_pipe_menu>"
+    return 0
+}
+
+case $1 in
+    unmount)
+	if [ "$2" = "all" ]; then
+	    devmon --unmount-all
+	else
+	    devmon --unmount-removable
+	    if [ $? -ne 0]; then
+		notify error "Failed to unmount $2"
+	    fi
+	fi
+	;;
+    remount)
+    	devmon --unmount-removable --mount-all
+	notify info "Mounting removable media..."
+	;;
+    *)
+	pipemenu
+	;;
+esac
+return 0

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openbox_menu xmlns="http://openbox.org/3.4/menu">
+
+<menu id="apps-editors-menu" label="Editors">
+</menu>
+
+<menu id="apps-term-menu" label="Terminals">
+</menu>
+
+<menu id="apps-net-menu" label="Internet">
+</menu>
+
+<menu id="apps-fileman-menu" label="File Managers">
+</menu>
+
+<menu id="system-menu" label="System">
+  <item label="Openbox Configuration Manager">
+    <action name="Execute">
+      <command>obconf</command>
+      <startupnotify><enabled>yes</enabled></startupnotify>
+    </action>
+  </item>
+  <!-- <item label="Tint Configuration Manager"> -->
+  <!--   <action name="Execute"> -->
+  <!--     <command>tint2conf</command> -->
+  <!--     <startupnotify><enabled>yes</enabled></startupnotify> -->
+  <!--   </action> -->
+  <!-- </item> -->
+  <!-- <item label="Manage Cups Printers"> -->
+  <!--   <action name="Execute"> -->
+  <!--     <command>xdg-open http://localhost:631/</command> -->
+  <!--     <startupnotify> -->
+  <!--       <enabled>no</enabled> -->
+  <!--       <icon>cups</icon> -->
+  <!--     </startupnotify> -->
+  <!--   </action> -->
+  <!-- </item> -->
+  <item label="Manage Dual Screen">
+    <action name="Execute">
+      <command>/home/garrido/.config/openbox/scripts/dual-screen</command>
+    </action>
+  </item>
+  <separator />
+  <item label="Reconfigure Openbox">
+    <action name="Reconfigure" />
+  </item>
+</menu>
+
+<menu id="root-menu" label="Openbox 3">
+  <!-- <separator label="Applications" /> -->
+  <item label="Emacs">
+    <action name="Execute">
+      <command>emacs</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+        <wmclass>Emacs</wmclass>
+      </startupnotify>
+    </action>
+  </item>
+  <item label="Terminator">
+    <action name="Execute">
+      <command>terminator</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+  <item label="Chromium">
+    <action name="Execute">
+      <command>chromium</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+        <wmclass>Chromium</wmclass>
+      </startupnotify>
+    </action>
+  </item>
+  <item label="Nautilus">
+    <action name="Execute">
+      <command>nautilus</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+  <item label="Transmission">
+    <action name="Execute">
+      <command>transmission-remote-gtk</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+        <wmclass>Transmission</wmclass>
+      </startupnotify>
+    </action>
+  </item>
+  <!-- <separator label="System" /> -->
+  <!-- <menu id="pipe-wifi" label="Wifi" -->
+  <!--       execute="sudo /home/garrido/.config/openbox/scripts/wifi-pipe wlan0"/> -->
+  <!-- <menu id="pipe-udiskie" label="USB drives" -->
+  <!--       execute="sudo /home/garrido/.config/openbox/scripts/devmon-pipe"/> -->
+  <menu id="system-menu"/>
+  <separator />
+  <item label="Log Out">
+    <action name="Exit">
+      <prompt>yes</prompt>
+    </action>
+  </item>
+</menu>
+
+</openbox_menu>
