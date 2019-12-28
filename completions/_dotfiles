@@ -7,19 +7,10 @@ typeset -gA _dotfiles_aliasmap
 typeset -ga _dotfiles_packages
 
 _dotfiles_aliasmap=(
-  setup     setup
-  unsetup   unsetup
-  conf      configure
+  list      list
   update    update
-  build     build
   install   install
   uninstall uninstall
-  dump      dump
-  test      test
-)
-
-_dotfiles_packages=(
-  $(find $dotfiles_dir/packages -name "*.zsh" -exec basename {} \; | sed 's/\.zsh//')
 )
 
 # --- Sub-command functions ---
@@ -38,83 +29,24 @@ _dotfiles_packages=(
 # _dotfiles_aliasmap associative array above (if the comand in fact has an
 # alias). The rest should just work[tm].
 
-function _dotfiles-build()
+function _dotfiles-update()
 {
-    [[ -n ${dotfiles_describe} ]] && print "Build a package" && return
-    __dotfiles-choose-package
+    [[ -n ${dotfiles_describe} ]] && print "Update dotfiles" && return
+}
+
+function _dotfiles-list()
+{
+    [[ -n ${dotfiles_describe} ]] && print "List dotfiles" && return
 }
 
 function _dotfiles-install()
 {
-    [[ -n ${dotfiles_describe} ]] && print "Install a package" && return
-    __dotfiles-choose-package
+    [[ -n ${dotfiles_describe} ]] && print "Install dotfiles" && return
 }
 
 function _dotfiles-uninstall()
 {
-    [[ -n ${dotfiles_describe} ]] && print "Uninstall a package" && return
-    __dotfiles-choose-package
-}
-
-function _dotfiles-configure()
-{
-    [[ -n ${dotfiles_describe} ]] && print "Configure a package" && return
-    local -a args
-    args=(
-        '--with-test[build with test (default)]'
-        '--without-test[do not build test programs]'
-        '--with-doc[build documentation]'
-        '--without-doc[do not build documentation (default)]'
-        '--with-warning[consider warning as error (default)]'
-        '--without-warning[do not consider warning as error]'
-        '*:: :->'
-    )
-    _arguments ${args} && return
-    __dotfiles-choose-package
-}
-
-function _dotfiles-test()
-{
-    [[ -n ${dotfiles_describe} ]] && print "Test a package" && return
-    __dotfiles-choose-package
-}
-
-function _dotfiles-goto()
-{
-    [[ -n ${dotfiles_describe} ]] && print "Goto package directory" && return
-    __dotfiles-choose-package
-}
-
-function _dotfiles-setup()
-{
-    [[ -n ${dotfiles_describe} ]] && print "Source a package" && return
-    __dotfiles-choose-package
-}
-
-function _dotfiles-unsetup()
-{
-    [[ -n ${dotfiles_describe} ]] && print "Un-Source a package" && return
-    __dotfiles-choose-package
-}
-
-function _dotfiles-dump()
-{
-    [[ -n ${dotfiles_describe} ]] && print "Dump a package" && return
-    __dotfiles-choose-package
-}
-
-function _dotfiles-update()
-{
-    [[ -n ${dotfiles_describe} ]] && print "Update a package" && return
-    __dotfiles-choose-package
-}
-
-# They should be called __dotfiles-*() and kept seperate from the
-# sub-command functions.
-
-function __dotfiles-choose-package()
-{
-    _describe -t _dotfiles_packages 'dotfiles option' _dotfiles_packages
+    [[ -n ${dotfiles_describe} ]] && print "Uninstall dotfiles" && return
 }
 
 # And here is the actual _dotfiles(), that puts it all together:
