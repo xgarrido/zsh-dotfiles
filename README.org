@@ -58,9 +58,9 @@ The dotfiles are stored within the =dotfiles= directory and include (non exhaust
   - [[file:dotfiles/config/openbox/][openbox]] :: =openbox= configuration files
   - [[file:dotfiles/config/terminator][terminator]] :: =terminator= terminal
   - [[file:dotfiles/config/dunst][dunst]] :: =dunst= notification system (much better than =libnotify=)
-  - [[files:dotfiles/config/matplotlib][matplotlib]] :: =matplotlib= configuration files
-  - [[files:dotfiles/config/root][root]] :: =ROOT= CERN configuration files
+  - [[file:dotfiles/config/matplotlib][matplotlib]] :: =matplotlib= configuration files
+  - [[file:dotfiles/config/root][root]] :: =ROOT= CERN configuration files
 
-** Misc.
-- [[file:fonts][fonts]] :: directory that holds additionnal fonts
-- [[file:bin][bin]] :: binaries directory
+- Misc.
+  - [[file:fonts][fonts]] :: directory that holds additionnal fonts
+  - [[file:bin][bin]] :: binaries directory
