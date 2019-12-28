@@ -1,0 +1,81 @@
+[general]
+accounts = LAL
+#,Gmail
+#maxsyncaccounts = 3
+autorefresh = 5
+pythonfile = ~/.offlineimap.py
+
+[Account Gmail]
+localrepository = Gmail-Local
+remoterepository = Gmail-Remote
+quick = -1
+
+[Repository Gmail-Local]
+type = Maildir
+localfolders = ~/.Maildir/Gmail
+sep = /
+nametrans = lambda folder: { 'sent':     '[Gmail]/Messages envoy&AOk-s',
+                        'spam':     '[Gmail]/Spam',
+                        'trash':    '[Gmail]/Corbeille',
+                        'archive':  '[Gmail]/Tous les messages',
+                        'drafts':   '[Gmail]/Brouillons',
+                        'inbox':    'INBOX',
+                      }.get(folder, folder)
+
+[Repository Gmail-Remote]
+type = IMAP
+remotehost = imap.gmail.com
+ssl = yes
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+holdconnectionopen = true
+keepalive = 120
+realdelete = no
+
+nametrans = lambda folder: { '[Gmail]/Messages envoy&AOk-s': 'sent',
+			'[Gmail]/Spam':                 'spam',
+			'[Gmail]/Corbeille':            'trash',
+			'[Gmail]/Tous les messages':    'archive',
+                        '[Gmail]/Brouillons':           'drafts',
+			'INBOX':                        'inbox',
+                      }.get(folder, folder)
+
+# nametrans = lambda folder: re.sub ('^\[gmail\].', '',
+#                       re.sub ('tous.*', 'all',
+#                       re.sub ('messages.*', 'sent',
+#                       re.sub ('corbeille', 'trash', folder.lower()))))
+#folderfilter = lambda folder: folder not in ['brouillons', 'suivis', 'important']
+
+
+[Account LAL]
+localrepository = LAL-Local
+remoterepository = LAL-Remote
+quick = -1
+
+[Repository LAL-Local]
+type = Maildir
+localfolders = ~/.Maildir/LAL
+sep = /
+nametrans = lambda folder: re.sub ('inbox',    'INBOX',
+                      re.sub ('archives', 'Archives',
+                      re.sub ('sent',     'Sent',
+                      re.sub ('drafts',   'Drafts',
+                      re.sub ('trash',    'Trash', folder)))))
+
+[Repository LAL-Remote]
+type = IMAP
+remotehost = lalmail.in2p3.fr
+ssl = yes
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+remoteuser = garrido@lal.in2p3.fr
+remotepasseval = get_authinfo_password("lalrelay.in2p3.fr", "garrido@lal.in2p3.fr", "465")
+holdconnectionopen = true
+keepalive = 120
+realdelete = no
+
+nametrans = lambda folder: re.sub ('^INBOX',   'inbox',
+                      re.sub ('Archives', 'archives',
+                      re.sub ('Sent',     'sent',
+                      re.sub ('Drafts',   'drafts',
+                      re.sub ('Trash',    'trash', folder)))))
+
+folderfilter = lambda folder: not re.search('(^public.*|^corbeille.*|.*saved.*|.*sent-mails.*)', folder.lower())

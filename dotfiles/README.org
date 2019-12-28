@@ -1,0 +1,38 @@
+#+TITLE: dotfiles - README
+#+AUTHOR: Xavier Garrido
+#+EMAIL: xavier.garrido@gmail.com
+
+* Description
+These are my personal dotfiles, which I manage with the help of git. This is the base dotfiles
+repository which contains what I want to have available in a basic shell environment.
+
+* What is included
+
+The dotfiles are stored within the =dotfiles= directory and include (non exhaustive list)
+
+** Shell environment
+- [[file:zshrc][zshrc]] :: zsh use =antigen= zsh bundle which is reponsible for downloading
+  and loading different zsh plugins
+- [[file:bashrc][bashrc]] :: bash (not used anymore)
+- [[file:profiles][profiles]] :: defines =PATH= variable and other environment variables
+- [[file:toprc][toprc]] :: fancy colors for =top= command (discarded in profit of =glances=
+  python package)
+
+** X11 settings
+- [[file:Xdefaults][Xdefaults]] :: it mainly contains some Xft antialias stuff and define
+  =emacs= default font
+
+** Individual tool configurations
+- [[file:gitconfig][gitconfig]] :: =git= mail and name configuration
+- [[file:latexmkrc][latexmkrc]] :: setup for =latexmk=
+
+** Application configuration
+- [[file:config/openbox/][openbox]] :: =openbox= configuration files
+- [[file:config/terminator][terminator]] :: =terminator= terminal
+- [[file:config/dunst][dunst]] :: =dunst= notification system (much better than =libnotify=)
+- [[file:config/matplotlib][matplotlib]] :: =matplotlib= configuration files
+- [[file:config/root][root]] :: =ROOT= CERN configuration files
+
+** Misc.
+- [[file:fonts][fonts]] :: directory that holds additionnal fonts
+- [[file:bin][bin]] :: binaries directory
