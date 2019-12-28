@@ -1,0 +1,5 @@
+nemo     -fstype=fuse,port=22,rw,allow_other :sshfs\#garrido@lx3.lal.in2p3.fr\:/exp/nemo
+data     -fstype=fuse,port=22,rw,allow_other :sshfs\#garrido@lx3.lal.in2p3.fr\:/data/nemo/data
+weblal   -fstype=fuse,port=22,rw,allow_other :sshfs\#garrido@lx3.lal.in2p3.fr\:/htdocs/projets/nemo-xg
+owncloud -fstype=davfs,rwuid=1000,gid=100    :https\://owncloud.lal.in2p3.fr/remote.php/webdav/
+rpi      -fstype=fuse,port=22,rw,allow_other :sshfs\#osmc@88.170.236.68\:/

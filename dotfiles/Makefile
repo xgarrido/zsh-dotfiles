@@ -1,6 +1,6 @@
 DOTPATH    := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 CANDIDATES := $(wildcard *) $(wildcard config/*)
-EXCLUSIONS := .git .gitmodules .gitignore README.org Makefile config autofs
+EXCLUSIONS := .git .gitmodules .gitignore README.org Makefile config autofs ssh
 DOTFILES   := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
 
 all: install
