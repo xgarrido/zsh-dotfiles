@@ -13,7 +13,7 @@ fi
 
 IFS=:
 if stest -dqr -n "$cache" $PATH; then
-    stest -flx $PATH | grep -v "[" | sort -u > "$cache"
+    stest -flx $PATH | sort -u > "$cache"
 fi
 unset IFS
 
