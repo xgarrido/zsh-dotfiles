@@ -21,7 +21,7 @@ github.com/user/repository. The possible [options] are:
   -f, --force-https      force the use of https address
 "
 
-gitdirectory=~/Development
+gitdirectory=${GIT_GET_DIRECTORY}
 gitaddress=
 gitupdate=false
 forcehttps=false
