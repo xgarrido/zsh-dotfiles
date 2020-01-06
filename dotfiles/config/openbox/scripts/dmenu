@@ -4,18 +4,10 @@ dopts="-p λ -c -lr 4 -d 0.3 -nb \"#2F343F\" -sb \"#5294E2\" -fn \"Ubuntu Mono f
 
 cachedir=${XDG_CACHE_HOME:-"$HOME/.cache"}
 if [ -d "$cachedir" ]; then
-    cache=$cachedir/dmenu_run
     historyfile=$cachedir/dmenu_history
 else			# if no xdg dir, fall back to dotfiles in ~
-    cache=$HOME/.dmenu_cache
     historyfile=$HOME/.dmenu_history
 fi
-
-IFS=:
-if stest -dqr -n "$cache" $PATH; then
-    stest -flx $PATH | sort -u > "$cache"
-fi
-unset IFS
 
 case $1 in
     path)
@@ -26,7 +18,7 @@ case $1 in
 			print
 			x[$0]=1
 		}
-	} !x[$0]++ ' "$cache" \
+	} !x[$0]++ ' <<< $(eval dmenu_path) \
 	    | eval dmenu ${dopts} -sb \"#E84A5F\" \
 	    | awk -v histfile=$historyfile '
 		BEGIN {
