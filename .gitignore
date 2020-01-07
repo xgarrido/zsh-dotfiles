@@ -1,5 +1,5 @@
 /dotfiles/ssh/id_rsa
 /dotfiles/ssh/id_rsa.pub
 /dotfiles/ssh/known_hosts
-*.uuid
 /dotfiles/config/gtk-3.0/servers
+/dotfiles/fonts/.uuid
