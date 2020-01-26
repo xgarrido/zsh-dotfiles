@@ -304,15 +304,15 @@
         <command>/home/garrido/.config/openbox/scripts/dmenu path</command>
       </action>
     </keybind>
-    <keybind key="W-Tab">
-      <action name="Execute">
-        <startupnotify>
-          <enabled>true</enabled>
-          <name>dmenu</name>
-        </startupnotify>
-        <command>/home/garrido/.config/openbox/scripts/dmenu files</command>
-      </action>
-    </keybind>
+    <!-- <keybind key="W-Tab"> -->
+    <!--   <action name="Execute"> -->
+    <!--     <startupnotify> -->
+    <!--       <enabled>true</enabled> -->
+    <!--       <name>dmenu</name> -->
+    <!--     </startupnotify> -->
+    <!--     <command>/home/garrido/.config/openbox/scripts/dmenu files</command> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
     <keybind key="W-p">
       <action name="Execute">
         <command>/home/garrido/.config/openbox/scripts/dual-screen</command>
@@ -331,6 +331,15 @@
     <keybind key="W-l">
       <action name="Execute">
         <command>/home/garrido/Development/github.com/xgarrido/org-web-links/org-web-links</command>
+      </action>
+    </keybind>
+    <keybind key="W-Tab">
+      <action name="Execute">
+        <startupnotify>
+          <enabled>true</enabled>
+          <name>skippy-xd</name>
+        </startupnotify>
+        <command>skippy-xd</command>
       </action>
     </keybind>
     <keybind key="W-t">
