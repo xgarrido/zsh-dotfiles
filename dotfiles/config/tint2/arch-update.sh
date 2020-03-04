@@ -16,7 +16,7 @@ if [[ ! -z "$upd" ]]
 then
     echo ~/.config/tint2/images/arch-icon-notify.svg
     echo "($upd)" | wc -l
-    notify-send " Pending updates:" "<i>$upd</i>" --icon="archlinux" --expire-time=5000
+    notify-send " Pending updates:" "$upd" --icon="archlinux" --expire-time=5000
 else
     echo ~/.config/tint2/images/arch-icon.svg
 fi
