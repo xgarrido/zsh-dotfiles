@@ -43,6 +43,10 @@ while IFS= read -r line; do
         else
             echo .config/tint2/images/bat-empty-charging.svg
         fi
+    elif [[ "$bat" == *"Full"* ]]; then
+        echo .config/tint2/images/bat-full.svg
+        echo $(date +"%a %d %b %H:%M")
+        break
     else
         if [[ "$level" -ge "95" ]]; then
             echo .config/tint2/images/bat-full.svg
@@ -60,10 +64,10 @@ while IFS= read -r line; do
         time=$(echo ${bat} | awk '{print $5}')
         hh=${time:0:2}
         mm=${time:3:2}
-        if [[ "$hh" -eq "00" ]]; then
-            time="${mm} minutes"
-        else
+        if [[ "$hh" -ne "00" ]]; then
             time="${hh}:${mm}"
+        else
+            time="${mm} minutes"
         fi
         echo ${level}%, ${time}, $(date +"%a %d %b %H:%M")
     fi
