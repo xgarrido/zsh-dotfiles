@@ -12,7 +12,7 @@ xset -b &
 # Set wallpaper
 /home/garrido/.config/openbox/scripts/change-wallpaper &
 # Launch tint
-#tint2 &
+tint2 &
 # Swap Caps_Lock and Escape keys
 xmodmap /home/garrido/.Xmodmap &
 # Running devmon to mount/umount media
