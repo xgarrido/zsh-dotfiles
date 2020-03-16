@@ -13,7 +13,7 @@ nbr_pending=0
 nbr_stopped=0
 logfile="/tmp/qsurvey.log"
 if [ ! -f ${logfile} ]; then
-    echo -ne "<span foreground='#dc322f' weight='bold' size='x-large' rise='4000'></span><span rise='6000'>  qsurvey program not running</span>"
+    echo -ne "<span foreground='#5294E2' weight='bold' size='x-large' rise='4000'></span><span rise='6000'>    qsurvey program not running</span>"
     exit 1
 else
 
