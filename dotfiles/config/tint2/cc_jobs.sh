@@ -30,6 +30,6 @@ else
 fi
 #:#dc322f:#859900:#b58900
 
-echo -ne "<span foreground='#268bd2' weight='bold' size='x-large'></span> ${nbr_running} "
+echo -ne "<span foreground='#859900' weight='bold' size='x-large'></span> ${nbr_running} "
 echo -ne "<span foreground='#b58900' weight='bold' size='x-large'></span> ${nbr_pending} "
-echo -ne "<span foreground='#dc322f' weight='bold' size='x-large'></span> <span rise='0'>${nbr_stopped}</span> "
+echo -ne "<span foreground='#DC322F' weight='bold' size='x-large'></span> <span rise='0'>${nbr_stopped}</span> "
