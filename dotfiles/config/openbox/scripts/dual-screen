@@ -30,7 +30,7 @@ for screen in ${screens}; do
     height=$(echo $resolution | awk -F'x' '{print $2}')
     x=$(($width - 250))
     echo $width $height $x
-    sed -i -e 's/geometry = \(.*\)/geometry = "400x15+'$x'+0"/' ~/.config/dunst/dunstrc
+    # sed -i -e 's/geometry = \(.*\)/geometry = "400x15+'$x'+0"/' ~/.config/dunst/dunstrc
     killall dunst
     dunst &
 done
