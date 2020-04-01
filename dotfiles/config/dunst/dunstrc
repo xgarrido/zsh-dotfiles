@@ -31,7 +31,7 @@
 
     # alignment of message text.
     # Possible values are "left", "center" and "right"
-    alignment = center
+    alignment = left
 
     # The frequency with wich text that is longer than the notification
     # window allows bounces back and forth.
@@ -60,7 +60,7 @@
     # right side of the screen. Y is measured from the top and down respectevly.
     # The width can be negative. In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "400x16+710+0"
+    geometry = "250x16-5-5"
 
     # The transparency of the window. range: [0; 100]
     # This option will only work if a compositing windowmanager is present (e.g. xcompmgr, compiz, etc..)
@@ -114,7 +114,7 @@
     # * foreground: use the same color as the foreground
     # * frame: use the same color as the frame.
     # * anything else will be interpreted as a X color
-    separator_color = #1A1A1A
+    separator_color = #fff
 
     # print a notification on startup
     # This is mainly for error detection, since dbus (re-)starts dunst
@@ -154,7 +154,7 @@
     timeout = 10
 
 [urgency_normal]
-    background = "#5294E2"
+    background = "#529529"
     foreground = "#FFFFFF"
     timeout = 10
 
@@ -217,6 +217,8 @@ format = "<big></big> %s\n%b"
 [git]
 summary = "git status"
 format = "<big></big> %b"
+background = "#5294E2"
+foreground = "#FFFFFF"
 timeout = 1
 
 [yaourt]
