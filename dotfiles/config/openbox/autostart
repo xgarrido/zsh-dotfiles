@@ -19,3 +19,5 @@ xmodmap /home/garrido/.Xmodmap &
 devmon &
 # Running dunst to send notification
 dunst &
+# Enable touchpad tap
+xinput set-prop "CUST0001:00 06CB:76AF Touchpad" "libinput Tapping Enabled" 1 > /dev/null 2>&1
