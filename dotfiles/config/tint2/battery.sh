@@ -45,7 +45,7 @@ while IFS= read -r line; do
         fi
     elif [[ "$bat" == *"Full"* ]]; then
         echo .config/tint2/images/bat-full.svg
-        echo $(date +"%a %d %b %H:%M")
+        # echo $(date +"%a %d %b %H:%M")
         break
     else
         if [[ "$level" -ge "95" ]]; then
@@ -69,6 +69,6 @@ while IFS= read -r line; do
         else
             time="${mm} minutes"
         fi
-        echo ${level}%, ${time}, $(date +"%a %d %b %H:%M")
+        echo ${level}%, ${time} #, $(date +"%a %d %b %H:%M")
     fi
 done <<< "$bats"
