@@ -80,7 +80,7 @@ EOF
         #     pkgtools::msg_error "Computer not locally connected to LAL !"
         #     return 1
         # fi
-        [ -z ${destination} ] && destination="garrido@lx3.lal.in2p3.fr:/exp/nemo/garrido/newbackup"
+        [ -z ${destination} ] && destination="garrido@lx3.lal.in2p3.fr:/exp/nemo/garrido/backup"
     else
         pkgtools::msg_error "Profile '$profile' is not know !"
         return 1
