@@ -13,4 +13,14 @@
       </metadata>
     </info>
   </bookmark>
+  <bookmark href="sftp://lx3.lal.in2p3.fr/" added="2020-07-04T09:44:27Z" modified="2020-07-04T09:44:27Z" visited="2020-07-04T09:44:27Z">
+    <title>/ sur lx3.lal.in2p3.fr</title>
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <bookmark:applications>
+          <bookmark:application name="org.gnome.Nautilus" exec="&apos;org.gnome.Nautilus %u&apos;" modified="2020-07-04T09:44:27Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
 </xbel>
