@@ -75,6 +75,22 @@ Public/
 .config/chromium
 .config/google-chrome
 EOF
+    elif [[ ${profile} == "orico" ]]; then
+        pkgtools::msg_notice "Running backup into ORICO device"
+        notify "Running backup into ORICO device"
+        if [ ! -d /run/media/garrido/orico1 ]; then
+            pkgtools::msg_notice "Try to mount ORICO device"
+            udisksctl mount -b /dev/sdb1
+            if ${pkgtools::last_command_fails}; then
+                pkgtools::msg_error "Mounting ORICO device fails !"
+                return 1
+            fi
+        fi
+        [ -z ${destination} ] && destination="/run/media/${USER}/orico1/backup"
+        cat << EOF >> ${exclude_list}
+.config/chromium
+.config/google-chrome
+EOF
     elif [[ ${profile} == "lal" ]]; then
         pkgtools::msg_notice "Running backup into LAL disk"
         notify-send -u normal "mybackup" "Running backup into LAL disk"
@@ -108,3 +124,7 @@ if $(pkgtools::last_command_fails); then
     exit 1
 fi
 notify-send -u normal -t 0 "mybackup" "Backup @ ${profile} sucessfully finished"
+
+if [[ ${profile} == "orico" ]]; then
+    udisksctl unmount -b /dev/sdb1
+fi
