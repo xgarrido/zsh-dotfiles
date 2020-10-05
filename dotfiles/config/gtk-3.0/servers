@@ -23,4 +23,14 @@
       </metadata>
     </info>
   </bookmark>
+  <bookmark href="sftp://xgarrido@cori.nersc.gov/" added="2020-09-21T14:02:10.183633Z" modified="2020-10-05T08:09:40.704199Z" visited="2020-10-05T08:09:40.704187Z">
+    <title>/ sur cori.nersc.gov</title>
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <bookmark:applications>
+          <bookmark:application name="org.gnome.Nautilus" exec="&apos;org.gnome.Nautilus %u&apos;" modified="2020-10-05T08:09:40.704191Z" count="2"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
 </xbel>

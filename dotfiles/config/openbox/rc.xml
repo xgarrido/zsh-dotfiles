@@ -248,7 +248,7 @@
       </action>
     </keybind>
     <keybind key="W-Left">
-      <action name="Unmaximize" />
+      <action name="Unmaximize"/>
       <action name="MoveResizeTo">
         <x>20</x>
         <y>20</y>
@@ -257,7 +257,7 @@
       </action>
     </keybind>
     <keybind key="W-Right">
-      <action name="Unmaximize" />
+      <action name="Unmaximize"/>
       <action name="MoveResizeTo">
         <x>-20</x>
         <y>20</y>
@@ -266,7 +266,7 @@
       </action>
     </keybind>
     <keybind key="W-Up">
-      <action name="Unmaximize" />
+      <action name="Unmaximize"/>
       <action name="MoveResizeTo">
         <x>0</x>
         <y>0</y>
@@ -275,7 +275,7 @@
       </action>
     </keybind>
     <keybind key="W-Down">
-      <action name="Unmaximize" />
+      <action name="Unmaximize"/>
       <action name="MoveResizeTo">
         <x>0</x>
         <y>-0</y>
@@ -284,7 +284,7 @@
       </action>
     </keybind>
     <keybind key="W-c">
-      <action name="Unmaximize" />
+      <action name="Unmaximize"/>
       <action name="MoveResizeTo">
         <x>10%</x>
         <y>40</y>
@@ -292,7 +292,6 @@
         <height>90%</height>
       </action>
     </keybind>
-
     <!-- Keybindings for running applications -->
     <keybind key="W-0x31">
       <!-- <keybind key="W-Tab"> -->

@@ -85,6 +85,7 @@ EOF
                 pkgtools::msg_error "Mounting ORICO device fails !"
                 return 1
             fi
+            pkgtools::msg_notice "ORICO device mounted"
         fi
         [ -z ${destination} ] && destination="/run/media/${USER}/orico1/backup"
         cat << EOF >> ${exclude_list}
