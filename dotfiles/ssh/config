@@ -1,3 +1,7 @@
 Host *
 ControlMaster auto
 ControlPath ~/.ssh/master-%r@%h:%p
+
+Host tp-ssh*.dep-informatique.u-psud.fr
+RemoteCommand /home/tp-home006/xgarrid/.local/bin/zsh
+RequestTTY force
