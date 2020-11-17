@@ -289,7 +289,7 @@
         <x>10%</x>
         <y>40</y>
         <width>80%</width>
-        <height>90%</height>
+        <height>80%</height>
       </action>
     </keybind>
     <!-- Keybindings for running applications -->
@@ -738,7 +738,7 @@
   <!-- controls if icons appear in the client-list-(combined-)menu -->
   <manageDesktops>yes</manageDesktops>
   <!-- show the manage desktops section in the client-list-(combined-)menu -->
-</menu>
+  </menu>
   <applications>
     <!--
   # this is an example with comments through out. use these to make your
