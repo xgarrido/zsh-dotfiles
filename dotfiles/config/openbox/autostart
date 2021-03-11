@@ -3,8 +3,8 @@
 # You may place a similar script in $HOME/.config/openbox/autostart
 # to run user-specific things.
 #
-# Set layout 4x2 grid desktop
-/home/garrido/.config/openbox/scripts/setlayout 0 4 2 0
+# Set layout 4x3 grid desktop
+/home/garrido/.config/openbox/scripts/setlayout 0 4 3 0
 # Set keyboard map
 setxkbmap -layout fr &
 # Disable beep

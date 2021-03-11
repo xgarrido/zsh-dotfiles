@@ -26,12 +26,12 @@ while [ -n "$1" ]; do
     elif [[ ${token} == "-q" || "${token}" == "--quiet" ]]; then
 	pkgtools::msg_using_quiet
 	export PKGTOOLS_MSG_QUIET=1
-    elif [[ ${token} == "--source" ]]; then
+    elif [[ ${token} == "--from" ]]; then
         shift 1
-        source="$1"
-    elif [[ ${token} == "--destination" ]]; then
+        from="$1"
+    elif [[ ${token} == "--to" ]]; then
         shift 1
-        destination="$1"
+        to="$1"
     elif [[ ${token} == "--profile" ]]; then
         shift 1
         profile="$1"
@@ -53,10 +53,14 @@ Development/docker.d
 .owncloudsync.log
 build/
 install/
+.config/chromium
+.config/google-chrome
+.config/Slack
+*.stversions*
 EOF
 
 if [ ! -z ${profile} ]; then
-    source="/home/garrido/"
+    from="/home/garrido/"
     if [[ ${profile} == "usb" ]]; then
         pkgtools::msg_notice "Running backup into USB device"
         notify "Running backup into USB device"
@@ -64,7 +68,7 @@ if [ ! -z ${profile} ]; then
             pkgtools::msg_error "USB device not connected !"
             return 1
         fi
-        [ -z ${destination} ] && destination="/run/media/${USER}/lacie/backup"
+        [ -z ${to} ] && to="/run/media/${USER}/lacie/backup"
         cat << EOF >> ${exclude_list}
 .mu/
 .Maildir/
@@ -72,8 +76,6 @@ brew/
 PAO.tar.gz
 NA61.tar.gz
 Public/
-.config/chromium
-.config/google-chrome
 EOF
     elif [[ ${profile} == "orico" ]]; then
         pkgtools::msg_notice "Running backup into ORICO device"
@@ -87,10 +89,8 @@ EOF
             fi
             pkgtools::msg_notice "ORICO device mounted"
         fi
-        [ -z ${destination} ] && destination="/run/media/${USER}/orico1/backup"
+        [ -z ${to} ] && to="/run/media/${USER}/orico1/backup"
         cat << EOF >> ${exclude_list}
-.config/chromium
-.config/google-chrome
 EOF
     elif [[ ${profile} == "lal" ]]; then
         pkgtools::msg_notice "Running backup into LAL disk"
@@ -99,27 +99,27 @@ EOF
         #     pkgtools::msg_error "Computer not locally connected to LAL !"
         #     return 1
         # fi
-        [ -z ${destination} ] && destination="garrido@lx3.lal.in2p3.fr:/exp/nemo/garrido/backup"
+        [ -z ${to} ] && to="xgarrido@lx3.lal.in2p3.fr:/exp/nemo/garrido/backup"
         cat << EOF >> ${exclude_list}
-.config/chromium
-.config/google-chrome
 EOF
     else
         pkgtools::msg_error "Profile '$profile' is not know !"
         return 1
     fi
 else
-    if [[ -z ${destination} || -z ${source} ]]; then
-        pkgtools::msg_error "Missing 'source' and/or 'destination' directories !"
+    if [[ -z ${to} || -z ${from} ]]; then
+        pkgtools::msg_error "Missing 'from' and/or 'to' directories !"
         return 1
     fi
-    [ ! -d ${destination} ] && mkdir -p ${destination}
-    [ ! -d ${source} ] && mkdir -p ${source}
-    pkgtools::msg_notice "Starting backup from ${source} to ${destination}..."
-    notify-send -u low "mybackup" "Starting backup from ${source} to ${destination}..."
+    [ ! -d ${to} ] && mkdir -p ${to}
+    [ ! -d ${from} ] && mkdir -p ${from}
+    pkgtools::msg_notice "Starting backup from ${from} to ${to}..."
+    notify-send -u low "mybackup" "Starting backup from ${from} to ${to}..."
 fi
 
-rsync-synchronize --exclude-from ${exclude_list} --delete-excluded ${source} ${destination}
+_rsync_cmd='noglob rsync --verbose --progress --human-readable --compress --archive --hard-links --one-file-system'
+
+eval ${_rsync_cmd} --exclude-from ${exclude_list} --delete-excluded --ignore-existing ${from} ${to}
 if $(pkgtools::last_command_fails); then
     notify-send -u critical -t 0 "mybackup" "Backup @ ${profile} fails !"
     exit 1

@@ -102,7 +102,7 @@
 
        use obconf if you want to change these without having to log out
        and back in -->
-    <number>8</number>
+    <number>12</number>
     <firstdesk>1</firstdesk>
     <names>
       <!-- set names up here if you want to, like this:
