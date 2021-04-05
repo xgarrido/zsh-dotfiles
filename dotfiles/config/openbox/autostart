@@ -20,4 +20,5 @@ devmon &
 # Running dunst to send notification
 dunst &
 # Enable touchpad tap
+xinput set-prop "DLL07F3:01 044E:120B" "libinput Tapping Enabled" 1 > /dev/null 2>&1
 xinput set-prop "CUST0001:00 06CB:76AF Touchpad" "libinput Tapping Enabled" 1 > /dev/null 2>&1
