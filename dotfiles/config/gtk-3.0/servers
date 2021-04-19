@@ -33,4 +33,24 @@
       </metadata>
     </info>
   </bookmark>
+  <bookmark href="sftp://xgarrido@xgarrido.ddns.net/" added="2021-01-22T15:08:40.148595Z" modified="2021-04-01T16:10:57.992827Z" visited="2021-04-01T16:10:57.992823Z">
+    <title>/ sur xgarrido.ddns.net</title>
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <bookmark:applications>
+          <bookmark:application name="org.gnome.Nautilus" exec="&apos;org.gnome.Nautilus %u&apos;" modified="2021-04-01T16:10:57.992824Z" count="2"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="sftp://xgarrido@lx3.lal.in2p3.fr/" added="2021-03-11T09:05:45.022834Z" modified="2021-03-11T09:05:45.022837Z" visited="2021-03-11T09:05:45.022835Z">
+    <title>/ sur lx3.lal.in2p3.fr</title>
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <bookmark:applications>
+          <bookmark:application name="org.gnome.Nautilus" exec="&apos;org.gnome.Nautilus %u&apos;" modified="2021-03-11T09:05:45.022836Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
 </xbel>

@@ -8,4 +8,4 @@ cat ${temp} | xclip -selection clipboard -t image/png
 
 # rm -f ${temp}
 
-notify-send -t 1000 -u low "Screenshot copied !"
+notify-send -t 1000 -u low "Screenshot ${temp} copied !"
