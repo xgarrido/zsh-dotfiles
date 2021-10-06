@@ -3,12 +3,12 @@
       xmlns:bookmark="http://www.freedesktop.org/standards/desktop-bookmarks"
       xmlns:mime="http://www.freedesktop.org/standards/shared-mime-info"
 >
-  <bookmark href="sftp://osmc@xgarrido.ddns.net/" added="2020-01-01T20:53:34Z" modified="2020-01-02T07:51:44Z" visited="2020-01-02T07:51:44Z">
+  <bookmark href="sftp://osmc@xgarrido.ddns.net/" added="2020-01-01T20:53:34Z" modified="2021-10-02T07:01:54.773553Z" visited="2021-10-02T07:01:54.773549Z">
     <title>/ sur xgarrido.ddns.net</title>
     <info>
       <metadata owner="http://freedesktop.org">
         <bookmark:applications>
-          <bookmark:application name="org.gnome.Nautilus" exec="&apos;org.gnome.Nautilus %u&apos;" modified="2020-01-02T07:51:44Z" count="4"/>
+          <bookmark:application name="org.gnome.Nautilus" exec="&apos;org.gnome.Nautilus %u&apos;" modified="2021-10-02T07:01:54.773550Z" count="5"/>
         </bookmark:applications>
       </metadata>
     </info>
@@ -39,16 +39,6 @@
       <metadata owner="http://freedesktop.org">
         <bookmark:applications>
           <bookmark:application name="org.gnome.Nautilus" exec="&apos;org.gnome.Nautilus %u&apos;" modified="2021-04-01T16:10:57.992824Z" count="2"/>
-        </bookmark:applications>
-      </metadata>
-    </info>
-  </bookmark>
-  <bookmark href="sftp://xgarrido@lx3.lal.in2p3.fr/" added="2021-03-11T09:05:45.022834Z" modified="2021-03-11T09:05:45.022837Z" visited="2021-03-11T09:05:45.022835Z">
-    <title>/ sur lx3.lal.in2p3.fr</title>
-    <info>
-      <metadata owner="http://freedesktop.org">
-        <bookmark:applications>
-          <bookmark:application name="org.gnome.Nautilus" exec="&apos;org.gnome.Nautilus %u&apos;" modified="2021-03-11T09:05:45.022836Z" count="1"/>
         </bookmark:applications>
       </metadata>
     </info>
