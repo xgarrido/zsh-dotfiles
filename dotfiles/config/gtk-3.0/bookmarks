@@ -1,7 +1,3 @@
 file:///home/garrido/Documents
-file:///home/garrido/Musique
-file:///home/garrido/Images
-file:///home/garrido/Vid%C3%A9os
-file:///home/garrido/T%C3%A9l%C3%A9chargements
 sftp://xgarrido@cori.nersc.gov/global/u2/x/xgarrido xgarrido sur cori.nersc.gov
-sftp://xgarrido@xgarrido.ddns.net/home/xgarrido xgarrido sur xgarrido.ddns.net
+sftp://osmc@xgarrido.ddns.net/home/osmc osmc sur xgarrido.ddns.net

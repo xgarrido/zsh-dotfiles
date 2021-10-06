@@ -3,12 +3,12 @@
       xmlns:bookmark="http://www.freedesktop.org/standards/desktop-bookmarks"
       xmlns:mime="http://www.freedesktop.org/standards/shared-mime-info"
 >
-  <bookmark href="sftp://osmc@xgarrido.ddns.net/" added="2020-01-01T20:53:34Z" modified="2021-10-02T07:01:54.773553Z" visited="2021-10-02T07:01:54.773549Z">
+  <bookmark href="sftp://osmc@xgarrido.ddns.net/" added="2020-01-01T20:53:34Z" modified="2021-10-06T06:26:52.246949Z" visited="2021-10-06T06:26:52.246929Z">
     <title>/ sur xgarrido.ddns.net</title>
     <info>
       <metadata owner="http://freedesktop.org">
         <bookmark:applications>
-          <bookmark:application name="org.gnome.Nautilus" exec="&apos;org.gnome.Nautilus %u&apos;" modified="2021-10-02T07:01:54.773550Z" count="5"/>
+          <bookmark:application name="org.gnome.Nautilus" exec="&apos;org.gnome.Nautilus %u&apos;" modified="2021-10-06T06:26:52.246939Z" count="6"/>
         </bookmark:applications>
       </metadata>
     </info>
