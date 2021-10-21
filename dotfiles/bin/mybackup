@@ -99,7 +99,7 @@ EOF
         #     pkgtools::msg_error "Computer not locally connected to LAL !"
         #     return 1
         # fi
-        [ -z ${to} ] && to="xgarrido@lx3.lal.in2p3.fr:/exp/nemo/garrido/backup"
+        [ -z ${to} ] && to="xgarrido@ssh-ubuntu1.ijclab.in2p3.fr:/exp/nemo/garrido/backup"
         cat << EOF >> ${exclude_list}
 EOF
     else
