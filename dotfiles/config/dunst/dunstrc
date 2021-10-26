@@ -60,7 +60,8 @@
     # right side of the screen. Y is measured from the top and down respectevly.
     # The width can be negative. In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "250x16-10+45"
+    # geometry = "250x16-10+45"
+    origin = top-right
 
     # The transparency of the window. range: [0; 100]
     # This option will only work if a compositing windowmanager is present (e.g. xcompmgr, compiz, etc..)
@@ -100,7 +101,7 @@
     separator_height = 0
 
     # corner radius
-    corner_radius = 3
+    corner_radius = 5
 
     # padding between text and separator
     padding = 5
@@ -115,6 +116,8 @@
     # * frame: use the same color as the frame.
     # * anything else will be interpreted as a X color
     separator_color = #fff
+
+    frame_width = 0
 
     # print a notification on startup
     # This is mainly for error detection, since dbus (re-)starts dunst
