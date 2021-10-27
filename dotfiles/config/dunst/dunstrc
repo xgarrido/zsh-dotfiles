@@ -33,12 +33,6 @@
     # Possible values are "left", "center" and "right"
     alignment = left
 
-    # The frequency with wich text that is longer than the notification
-    # window allows bounces back and forth.
-    # This option conflicts with 'word_wrap'.
-    # Set to 0 to disable
-    bounce_freq = 0
-
     # show age of message if message is older than show_age_threshold seconds.
     # set to -1 to disable
     show_age_threshold = 40
@@ -115,14 +109,9 @@
     # * foreground: use the same color as the foreground
     # * frame: use the same color as the frame.
     # * anything else will be interpreted as a X color
-    separator_color = #fff
+    separator_color = "foreground"
 
     frame_width = 0
-
-    # print a notification on startup
-    # This is mainly for error detection, since dbus (re-)starts dunst
-    # automatically after a crash.
-    startup_notification = yes
 
     # dmenu path
     dmenu = /usr/bin/dmenu -p dunst:
@@ -132,42 +121,25 @@
 
     icon_path = /usr/share/icons/Numix/48/actions:/usr/share/icons/Numix/48/status:/usr/share/icons/Numix-Square/48/apps
 
-[shortcuts]
-    # shortcuts are specified as [modifier+][modifier+]...key
-    # available modifiers are 'ctrl', 'mod1' (the alt-key), 'mod2', 'mod3'
-    # and 'mod4' (windows-key)
-    # xev might be helpful to find names for keys
-
-    # close notification
-    close = ctrl+space
-
-    # close all notifications
-    close_all = ctrl+shift+space
-
-    # redisplay last message(s)
-    # On the US keyboard layout 'grave' is normally above TAB and left of '1'.
-    history = ctrl+shift+h
-
-    # context menu
-    context = ctrl+shift+period
-
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the '#' and following would be interpreted as a comment.
     background = "#2F343F"
     foreground = "#FFFFFF"
     timeout = 10
+    # new_icon = gtk-info
 
 [urgency_normal]
     background = "#2F343F"
-    # background = "#529529"
     foreground = "#FFFFFF"
     timeout = 10
+    # new_icon = gtk-info
 
 [urgency_critical]
-    background = "#CC575D"
+    background = "#2F343F"
     foreground = "#FFFFFF"
     timeout = 10
+    # new_icon = gtk-stop
 
 
 # Every section that isn't one of the above is interpreted as a rules
@@ -230,15 +202,17 @@ body = "from*"
 summary = "yaourt"
 format = "<big></big> <b>%s</b>\n%b"
 
-[googlemusic]
-# summary = "*play.google.com*"
-body = "*play.google.com*"
-format = ""
-script = ~/.config/dunst/browser_notification.sh
-
-[volume]
+[volume on]
 summary = "Volume"
 format = "<b>%b</b> %p"
+new_icon = "none"
+
+[volume off]
+summary = "Volume"
+body = "*off*"
+format = "<b>%b</b> %p"
+new_icon = "none"
+background = "#CF3434"
 
 [mybackup]
 summary = "mybackup"
@@ -246,4 +220,4 @@ format = "<big></big> <b>%s</b>\n%b"
 
 [slack]
 appname = Slack
-format = "coucou"
+new_icon = slack
