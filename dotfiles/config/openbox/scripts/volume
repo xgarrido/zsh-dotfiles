@@ -20,16 +20,16 @@ if [ $STATUS = '[off]' ]; then
     priority=critical
 else
     if [ $VOLUME -eq 0 ]; then
-        ICON=audio-volume-off
+        ICON=audio-volume-off-symbolic
     elif [ $VOLUME -lt 33 ]; then
-        ICON=audio-volume-low
+        ICON=audio-volume-low-symbolic
     elif [ $VOLUME -lt 66 ]; then
-        ICON=audio-volume-medium
+        ICON=audio-volume-medium-symbolic
     else
-        ICON=audio-volume-high
+        ICON=audio-volume-high-symbolic
     fi
     msg="Current level"
     priority=normal
 fi
 # VOLUME="${VOLUME}%"
-notify-send "Volume" "${msg}" -h int:value:${VOLUME} -i $ICON -t 1000 -u ${priority}
+notify-send "Volume" "${msg}" -h int:value:${VOLUME} -t 1000 -u ${priority}

@@ -130,7 +130,7 @@
     # browser for opening urls in context menu
     browser = /usr/bin/google-chrome-stable
 
-    icon_path = /usr/share/icons/Numix-Square/48@2x/apps
+    icon_path = /usr/share/icons/Numix/48/actions:/usr/share/icons/Numix/48/status:/usr/share/icons/Numix-Square/48/apps
 
 [shortcuts]
     # shortcuts are specified as [modifier+][modifier+]...key
@@ -218,7 +218,6 @@ urgency = critical
 
 [mail]
 body = "from*"
-format = "<big></big> %s\n%b"
 
 # [git]
 # summary = "git status"
@@ -239,8 +238,12 @@ script = ~/.config/dunst/browser_notification.sh
 
 [volume]
 summary = "Volume"
-format = "<big></big> %b %p"
+format = "<b>%b</b> %p"
 
 [mybackup]
 summary = "mybackup"
 format = "<big></big> <b>%s</b>\n%b"
+
+[slack]
+appname = Slack
+format = "coucou"
