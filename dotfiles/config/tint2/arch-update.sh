@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Author: Piotr Miller
 # e-mail: nwg.piotr@gmail.com
@@ -14,8 +14,12 @@ upd=$(/bin/sh -c "/usr/bin/checkupdates")
 
 if [[ ! -z "$upd" ]]
 then
+    nbr_packages=$(echo "$upd" | wc -l)
     echo ~/.config/tint2/images/arch-icon-notify.svg
-    echo "($upd)" | wc -l
+    echo "$nbr_packages"
+    if [[ ${nbr_packages} -gt 2 ]]; then
+        upd="$(echo "$upd" | head -n2)\nand $(( ${nbr_packages} - 2 )) others packages"
+    fi
     notify-send "Pending updates:" "$upd" --icon="archlinux" --expire-time=5000
 else
     echo ~/.config/tint2/images/arch-icon.svg
