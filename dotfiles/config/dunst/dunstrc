@@ -198,9 +198,9 @@ body = "from*"
 # foreground = "#FFFFFF"
 # timeout = 1
 
-[yaourt]
-summary = "yaourt"
-format = "<big></big> <b>%s</b>\n%b"
+# [yaourt]
+# summary = "yaourt"
+# format = "<big></big> <b>%s</b>\n%b"
 
 [volume on]
 summary = "Volume"
