@@ -114,17 +114,17 @@ else
     [ ! -d ${to} ] && mkdir -p ${to}
     [ ! -d ${from} ] && mkdir -p ${from}
     pkgtools::msg_notice "Starting backup from ${from} to ${to}..."
-    notify-send -u low "mybackup" "Starting backup from ${from} to ${to}..."
+    notify-send -u low -i kbackup "mybackup" "Starting backup from ${from} to ${to}..."
 fi
 
 _rsync_cmd='noglob rsync --verbose --progress --human-readable --compress --archive --hard-links --one-file-system'
 
 eval ${_rsync_cmd} --exclude-from ${exclude_list} --delete-excluded --ignore-existing ${from} ${to}
 if $(pkgtools::last_command_fails); then
-    notify-send -u critical -t 0 "mybackup" "Backup @ ${profile} fails !"
+    notify-send -u critical -i kbackup -t 0 "mybackup" "Backup @ ${profile} fails !"
     exit 1
 fi
-notify-send -u normal -t 0 "mybackup" "Backup @ ${profile} sucessfully finished"
+notify-send -u normal -i kbackup -t 0 "mybackup" "Backup @ ${profile} sucessfully finished"
 
 if [[ ${profile} == "orico" ]]; then
     udisksctl unmount -b /dev/sdb1

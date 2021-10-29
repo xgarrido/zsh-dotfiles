@@ -36,7 +36,7 @@ else
                 #mu view $f
                 content=$(mu view $m)
                 from=$(echo $content | grep '^From:' | sed -e 's/^From: \(.*\)<.*/\1/' -e 's/^From: //')
-                subject=$(echo $content | grep '^Subject:' | sed 's/Subject://')
+                subject=$(echo $content | grep '^Subject:' | sed 's/Subject: //')
                 notify-send -i mail-message-new "${subject}" "from <b>${from}</b>"
             done
         fi

@@ -214,9 +214,9 @@ format = "<b>%b</b> %p"
 new_icon = "none"
 background = "#CF3434"
 
-[mybackup]
-summary = "mybackup"
-format = "<big></big> <b>%s</b>\n%b"
+# [mybackup]
+# summary = "mybackup"
+# format = "<big></big> <b>%s</b>\n%b"
 
 [slack]
 appname = Slack
