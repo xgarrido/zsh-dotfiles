@@ -19,7 +19,7 @@ done
 
 /usr/bin/offlineimap $@
 if [ $? -ne 0 ]; then
-    notify-send -i mail-message -u critical "error" "offlineimap check fails!"
+    notify-send -i mail-mark-important -u critical "error" "offlineimap check fails!"
 else
     accounts=( LAL )
     if [ ! -z ${account} ]; then
