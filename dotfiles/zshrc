@@ -13,7 +13,7 @@ antigen bundle virtualenv
 antigen bundle pip
 
 # Syntax highlighting bundle.
-antigen bundle zdharma/fast-syntax-highlighting
+antigen bundle zdharma-continuum/fast-syntax-highlighting
 
 # Highlight history search bundle.
 antigen bundle zsh-users/zsh-history-substring-search
