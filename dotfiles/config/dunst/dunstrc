@@ -221,3 +221,21 @@ background = "#CF3434"
 [slack]
 appname = Slack
 new_icon = slack
+
+[nc_connected]
+summary = "NC-25"
+body = Connecté(e)
+new_icon = bluetooth-active
+
+[nc_connected2]
+summary = Connecté(e)
+new_icon = bluetooth-active
+
+[nc_disconnected]
+summary = "NC-25"
+body = Disconnected
+new_icon = bluetooth-inactive
+
+[network_manager]
+appname = NetworkManager
+new_icon = networkmanager
