@@ -5,7 +5,7 @@ cmd="SGE_ROOT=/opt/sge SGE_CELL=ccin2p3 /opt/sge/bin/lx-amd64/qstat"
 new_status=$(ssh garrido@cca.in2p3.fr ${cmd} | tail -n +3 |
              awk 'BEGIN{r=qw=0} $5 == "r" {r++} $5 ~ "qw" {qw++} END{print r"/"qw"/"NR - (r + qw)}')
 log_status=/tmp/qsurvey_status.log
-old_status=$(cat ${log_status})
+test -f ${log_status} && old_status=$(cat ${log_status}) || old_status="0/0/0"
 echo ${new_status} > ${log_status}
 
 if [[ ${old_status} != ${new_status} ]]; then
@@ -24,7 +24,7 @@ fi
 
 # Generate svg status icon
 opacity=1
-if [[ ${new_status} == "0|0|0" ]]; then
+if [[ ${new_status} == "0/0/0" ]]; then
     opacity=0.1
     new_status=""
 fi
