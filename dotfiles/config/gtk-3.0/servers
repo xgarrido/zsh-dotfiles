@@ -43,4 +43,14 @@
       </metadata>
     </info>
   </bookmark>
+  <bookmark href="sftp://xgarrido@ssh-ubuntu1.ijclab.in2p3.fr/" added="2021-11-18T21:54:56.927965Z" modified="2021-11-18T21:54:56.927970Z" visited="2021-11-18T21:54:56.927967Z">
+    <title>/ sur ssh-ubuntu1.ijclab.in2p3.fr</title>
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <bookmark:applications>
+          <bookmark:application name="org.gnome.Nautilus" exec="&apos;org.gnome.Nautilus %u&apos;" modified="2021-11-18T21:54:56.927968Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
 </xbel>
