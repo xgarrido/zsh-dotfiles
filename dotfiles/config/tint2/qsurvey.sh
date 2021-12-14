@@ -10,9 +10,9 @@ if [ $? -ne 0 ]; then
 fi
 
 # Get number of jobs running, waiting and anything else
-cmd="SGE_ROOT=/opt/sge SGE_CELL=ccin2p3 /opt/sge/bin/lx-amd64/qstat"
-new_status=$(ssh garrido@cca.in2p3.fr ${cmd} | tail -n +3 |
-                 awk 'BEGIN{r=qw=0} $5 == "r" {r++} $5 ~ "qw" {qw++} END{print r"/"qw"/"NR - (r + qw)}')
+cmd="squeue"
+new_status=$(ssh garrido@cca.in2p3.fr ${cmd} | tail -n +2 |
+                 awk 'BEGIN{r=qw=0} $5 == "R" {r++} $5 ~ "QW" {qw++} END{print r"/"qw"/"NR - (r + qw)}')
 log_status=/tmp/qsurvey_status.log
 test -f ${log_status} && old_status=$(cat ${log_status}) || old_status="0/0/0"
 echo ${new_status} > ${log_status}
