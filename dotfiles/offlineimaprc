@@ -63,11 +63,11 @@ nametrans = lambda folder: re.sub ('inbox',    'INBOX',
 
 [Repository LAL-Remote]
 type = IMAP
-remotehost = lalmail.in2p3.fr
+remotehost = zimbra.in2p3.fr
 ssl = yes
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
-remoteuser = garrido@lal.in2p3.fr
-remotepasseval = get_authinfo_password("lalrelay.in2p3.fr", "garrido@lal.in2p3.fr", "465")
+remoteuser = xavier.garrido@ijclab.in2p3.fr
+remotepasseval = get_authinfo_password("zrelay.in2p3.fr", "xavier.garrido@ijclab.in2p3.fr", "465")
 holdconnectionopen = true
 keepalive = 120
 realdelete = no
