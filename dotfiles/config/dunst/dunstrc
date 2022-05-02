@@ -243,3 +243,7 @@ new_icon = bluetooth-inactive
 [network_manager]
 appname = NetworkManager
 new_icon = networkmanager
+
+[transmission]
+body = "*torrent*"
+new_icon = transmission
