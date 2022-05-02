@@ -154,11 +154,12 @@ def generate_template():
         \usepackage[eulergreek]{sansmath}
         \usepackage{tikz,tikz-3dplot,circuitikz,nicefrac,amsmath,amssymb,pifont,units,xspace}
         \usetikzlibrary{positioning,snakes,backgrounds,patterns,matrix,shapes,fit,calc,shadows,plotmarks,spy,trees,decorations.markings}
-
         \usepackage{onimage}
         \usepackage{pgfplots}
+        \usepackage{pgf-pie}
         \usepackage{pgfplotstable}
         \usepgfplotslibrary{polar}
+
         \usetikzlibrary{pgfplots.groupplots,external}
 %%        \tikzexternalize
         \usepackage{upgreek}
