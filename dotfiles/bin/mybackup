@@ -95,10 +95,6 @@ EOF
     elif [[ ${profile} == "lal" ]]; then
         pkgtools::msg_notice "Running backup into LAL disk"
         notify-send -u normal "mybackup" "Running backup into LAL disk"
-        # if ! $(pkgtools::at_lal); then
-        #     pkgtools::msg_error "Computer not locally connected to LAL !"
-        #     return 1
-        # fi
         [ -z ${to} ] && to="xgarrido@ssh-ubuntu1.ijclab.in2p3.fr:/exp/nemo/garrido/backup"
         cat << EOF >> ${exclude_list}
 EOF
