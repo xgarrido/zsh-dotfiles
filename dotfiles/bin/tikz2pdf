@@ -159,7 +159,7 @@ def generate_template():
         \usepackage{pgf-pie}
         \usepackage{pgfplotstable}
         \usepgfplotslibrary{polar}
-
+        \usepackage{pgf-pie}
         \usetikzlibrary{pgfplots.groupplots,external}
 %%        \tikzexternalize
         \usepackage{upgreek}
