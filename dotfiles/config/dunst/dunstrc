@@ -73,6 +73,9 @@
     # Which monitor should the notifications be displayed on.
     monitor = 0
 
+     # Maximum number of notification (0 means no limit)
+    notification_limit = 20
+
     # Display notification on focused monitor. Possible modes are:
     # mouse: follow mouse pointer
     # keyboard: follow window with keyboard focus
@@ -87,8 +90,8 @@
 
     # should a notification popped up from history be sticky or
     # timeout as if it would normally do.
-    sticky_history = false
-    history_length = 10
+    sticky_history = no
+    history_length = 5
 
     # The height of a single line. If the height is smaller than the font height,
     # it will get raised to the font height.
@@ -178,21 +181,6 @@
 # summary = "foobar"
 # format = ""
 
-[signed_on]
-appname = Pidgin
-summary = "*Signed on*"
-urgency = low
-
-[signed_off]
-appname = Pidgin
-summary = *Signed off*
-urgency = low
-
-[says]
-appname = Pidgin
-summary = *says*
-urgency = critical
-
 [mail]
 body = "from*"
 
@@ -242,7 +230,7 @@ body = Disconnected
 new_icon = bluetooth-inactive
 
 [network_manager]
-appname = NetworkManager
+appname = "Applet NetworkManager"
 new_icon = networkmanager
 
 [transmission]
