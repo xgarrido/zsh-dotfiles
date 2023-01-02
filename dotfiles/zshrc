@@ -18,6 +18,9 @@ antigen bundle zdharma-continuum/fast-syntax-highlighting
 # Highlight history search bundle.
 antigen bundle zsh-users/zsh-history-substring-search
 
+# Zsh autosuggestions
+antigen bundle zsh-users/zsh-autosuggestions
+
 # Zsh completion.
 antigen bundle zsh-users/zsh-completions
 
