@@ -12,7 +12,7 @@ fi
 # Get number of jobs running, waiting and anything else
 cmd="squeue"
 new_status=$(ssh garrido@cca.in2p3.fr ${cmd} | tail -n +2 |
-                 awk 'BEGIN{r=qw=0} $5 == "R" {r++} $5 ~ "QW" {qw++} END{print r"/"qw"/"NR - (r + qw)}')
+                 awk 'BEGIN{r=qw=0} $5 == "R" {r++} $5 ~ "PD" {qw++} END{print r"/"qw"/"NR - (r + qw)}')
 log_status=/tmp/qsurvey_status.log
 test -f ${log_status} && old_status=$(cat ${log_status}) || old_status="0/0/0"
 echo ${new_status} > ${log_status}
