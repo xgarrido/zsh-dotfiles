@@ -127,7 +127,7 @@
     # browser for opening urls in context menu
     browser = /usr/bin/google-chrome-stable
 
-    icon_path = /usr/share/icons/Numix/48/actions:/usr/share/icons/Numix/48/status:/usr/share/icons/Numix-Square/48/apps
+    icon_path = /usr/share/icons/Numix/48/actions:/usr/share/icons/Numix/48/status:/usr/share/icons/Numix-Square/48/apps:/usr/share/icons/Numix/32/actions
 
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
@@ -216,7 +216,7 @@ appname = Slack
 new_icon = slack
 
 [nc_connected]
-summary = "NC-25"
+summary = "*NC-25*"
 body = Connecté(e)
 new_icon = bluetooth-active
 
@@ -225,8 +225,8 @@ summary = Connecté(e)
 new_icon = bluetooth-active
 
 [nc_disconnected]
-summary = "NC-25"
-body = Disconnected
+summary = "*NC-25*"
+body = Déconnecté
 new_icon = bluetooth-inactive
 
 [network_manager]
