@@ -1,4 +1,6 @@
 # -*- mode: shell-script; -*-
+[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
+
 export ADOTDIR=~/.config/zsh/antigen-repo
 
 source ~/.config/zsh/antigen/antigen.zsh
