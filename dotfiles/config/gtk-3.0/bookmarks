@@ -3,4 +3,4 @@ file:///home/garrido/Workdir
 file:///home/garrido/Documents
 sftp://xgarrido@cori.nersc.gov/global/u2/x/xgarrido xgarrido sur cori.nersc.gov
 sftp://xgarrido@ssh-ubuntu1.ijclab.in2p3.fr/users/nemo/garrido IJCLab
-sftp://osmc@xgarrido.hd.free.fr/home/osmc osmc
+sftp://osmc@xgarrido.hd.free.fr/mnt/lacie osmc
