@@ -1,6 +1,7 @@
 #!/bin/bash
 
-temp="$(mktemp -u).png"
+# temp="$(mktemp -u).png"
+temp="$(mktemp -u -t tmp.$(date +%Y-%m-%d-%H-%M-%S)-XXXXXXX).png"
 
 scrot --select ${temp}
 
@@ -8,4 +9,4 @@ cat ${temp} | xclip -selection clipboard -t image/png
 
 # rm -f ${temp}
 
-notify-send -t 1000 -i screenie -u low "Screenshot ${temp} copied !"
+notify-send -t 3000 -i screenie -u low "Screenshot ${temp} copied !"
