@@ -175,6 +175,9 @@ case $1 in
     s|solid)
         use_solid_wallpaper
         ;;
+    pacwall)
+        use_pacwall
+        ;;
     *)
         use_solid_wallpaper
         ;;
