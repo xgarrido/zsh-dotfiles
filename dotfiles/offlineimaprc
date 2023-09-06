@@ -78,4 +78,4 @@ nametrans = lambda folder: re.sub ('^INBOX',   'inbox',
                       re.sub ('Drafts',   'drafts',
                       re.sub ('Trash',    'trash', folder)))))
 
-folderfilter = lambda folder: not re.search('(^public.*|^corbeille.*|.*saved.*|.*sent-mails.*)', folder.lower())
+folderfilter = lambda folder: not re.search('(^public.*|^corbeille.*|.*saved.*|.*sent-mails.*|2005|2006|2007|2008|2009|2010|2011|2012|2013|2014|2015)', folder.lower())
