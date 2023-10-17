@@ -5,5 +5,7 @@ export SSH_AUTH_SOCK
 dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
 # systemctl --user mask xdg-desktop-portal-gnome
 
+mkdir -p $XDG_RUNTIME_DIR/gvfsd-sftp
+
 #exec gnome-session
 exec openbox-session
