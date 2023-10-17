@@ -109,7 +109,7 @@ except IOError:
 basename = os.path.splitext(tikzName)[0]
 
 tmpName = basename + ".tmp"
-texName = basename + ".ttex"
+texName = basename + ".tex"
 pdfName = basename + ".pdf"
 
 
@@ -168,10 +168,11 @@ def generate_template():
 	\usepackage{relsize}
 	\usepackage{etoolbox}
 	\usepackage{esvect}
-	\usepackage[detect-family,separate-uncertainty=true]{siunitx}
-	\sisetup{text-sf=\sansmath}
+        %% \usepackage[detect-family,separate-uncertainty=true]{siunitx}
+	%% \sisetup{text-sf=\sansmath}
         \usepackage{fontspec}
 	\usepackage{xunicode}
+	\usepackage{xcolor}
         \setmonofont[Scale=0.9]{Inconsolata}
         """
     if options.xkcd:
@@ -210,7 +211,7 @@ def verboseUnlink(filename):
 
 viewer = None
 # re-use texdoc's configuration variables for viewing TeX's output:
-viewCommand = "evince %r"
+viewCommand = "xdg-open %r"
 texdocViewCommand = os.environ.get("TEXDOCVIEW_pdf", None)
 if texdocViewCommand:
     viewCommand = texdocViewCommand.rstrip("&").replace("%s", "%r")
