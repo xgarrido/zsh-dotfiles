@@ -2,8 +2,12 @@
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
 
 export ADOTDIR=~/.config/zsh/antigen-repo
+export ANTIGEN_DIR=${ADOTDIR}/antigen
 
-source ~/.config/zsh/antigen/antigen.zsh
+[[ -e ${ANTIGEN_DIR} ]] ||
+    git clone https://github.com/zsh-users/antigen.git ${ANTIGEN_DIR}
+
+source ${ANTIGEN_DIR}/antigen.zsh
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
