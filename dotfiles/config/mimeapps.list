@@ -1,0 +1,16 @@
+[Default Applications]
+x-scheme-handler/webcal=chromium.desktop
+application/pdf=evince.desktop
+text/html=chromium.desktop
+x-scheme-handler/mailto=chromium.desktop
+x-scheme-handler/mattermost-dev=mattermost-desktop.desktop;
+
+[Added Associations]
+application/pdf=org.gnome.Evince.desktop;
+video/mp4=org.gnome.Totem.desktop;
+application/msword=org.libreoffice.LibreOffice.writer.desktop;org.gnome.Evince.desktop;
+video/x-matroska=mplayer.desktop;org.gnome.Totem.desktop;
+image/png=org.gnome.eog.desktop;
+image/heif=org.gnome.eog.desktop;
+image/jpeg=org.gnome.eog.desktop;
+text/x-python=emacs.desktop;
