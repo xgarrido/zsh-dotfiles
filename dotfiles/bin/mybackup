@@ -77,6 +77,18 @@ PAO.tar.gz
 NA61.tar.gz
 Public/
 EOF
+    elif [[ ${profile} == "rpi" ]]; then
+        pkgtools::msg_notice "Running backup into raspberry device"
+        notify "Running backup into raspberry device"
+        [ -z ${to} ] && to="rpi@xgarrido.hd.free.fr:/media/lacie/backup"
+        cat << EOF >> ${exclude_list}
+.mu/
+.Maildir/
+brew/
+PAO.tar.gz
+NA61.tar.gz
+Public/
+EOF
     elif [[ ${profile} == "orico" ]]; then
         pkgtools::msg_notice "Running backup into ORICO device"
         notify "Running backup into ORICO device"
