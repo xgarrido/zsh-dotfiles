@@ -12,10 +12,12 @@
 [keybindings]
   zoom_in = <Control>equal
   new_tab = <Ctrl><Shift>t
+  go_next = <Super>n
   go_up = <Shift><Alt>Up
   go_down = <Shift><Alt>Down
   go_left = <Shift><Alt>Left
   go_right = <Shift><Alt>Right
+  split_auto = <Super>a
   split_horiz = <Super>h
   split_vert = <Super>j
   close_term = <Super>w

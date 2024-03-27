@@ -350,12 +350,12 @@
         <command>terminator</command>
       </action>
     </keybind>
-    <keybind key="W-a">
-      <action name="Execute">
-        <command>terminator --geometry 800x200+560-0 -b</command>
-        <decor>no</decor>
-      </action>
-    </keybind>
+    <!-- <keybind key="W-a"> -->
+    <!--   <action name="Execute"> -->
+    <!--     <command>terminator -\-geometry 800x200+560-0 -b</command> -->
+    <!--     <decor>no</decor> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
     <keybind key="W-e">
       <action name="Execute">
         <startupnotify>
