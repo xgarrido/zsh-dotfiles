@@ -1,5 +1,6 @@
-#!/usr/bin/python2.7
-import re, os
+import os
+import re
+
 
 def get_authinfo_password(machine, login, port):
     s = "machine %s login %s port %s password ([^ ]*)\n" % (machine, login, port)
