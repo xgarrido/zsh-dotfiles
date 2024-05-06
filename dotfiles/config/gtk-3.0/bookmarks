@@ -5,4 +5,4 @@ sftp://xgarrido@ssh-ubuntu1.ijclab.in2p3.fr/users/nemo/garrido ijclab
 sftp://xgarrido@perlmutter.nersc.gov/global/u2/x/xgarrido nersc
 sftp://garrido@cca.in2p3.fr/pbs/home/g/garrido lyon
 sftp://rpi@xgarrido.hd.free.fr/home/rpi rpi
-sftp://xavier.garrido@ldas-grid.ligo.caltech.edu/home/xavier.garrido ligo
+sftp://xavier.garrido@ldas-grid.ligo.caltech.edu/home/xavier.garrido caltech
