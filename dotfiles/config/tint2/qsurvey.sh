@@ -14,14 +14,14 @@ fi
 cmd="squeue -u $1"
 new_status=$(ssh $1@$2 ${cmd} | tail -n +2 |
                awk 'BEGIN{r=qw=0} $5 == "R" {r++} $5 ~ "PD" {qw++} END{print r"/"qw"/"NR - (r + qw)}')
-log_status=/tmp/qsurvey_status.log
+log_status=/tmp/qsurvey_status_$2.log
 test -f ${log_status} && old_status=$(cat ${log_status}) || old_status="0/0/0"
 echo ${new_status} > ${log_status}
 
 if [[ $2 = "cca.in2p3.fr" ]]; then
   cluster="CC-IN2P3"
 else
-  cluster="ruche@saclay"
+  cluster="RUCHE"
 fi
 if [[ ${old_status} != ${new_status} ]]; then
   old=(${old_status//\// })
