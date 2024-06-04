@@ -11,18 +11,35 @@ if [ $? -ne 0 ]; then
 fi
 
 # Get number of jobs running, waiting and anything else
-cmd="squeue -u $1"
-new_status=$(ssh $1@$2 ${cmd} | tail -n +2 |
+case $2 in
+  ruche*|cca*)
+    cmd="squeue -u $1"
+    new_status=$(ssh $1@$2 ${cmd} | tail -n +2 |
                awk 'BEGIN{r=qw=0} $5 == "R" {r++} $5 ~ "PD" {qw++} END{print r"/"qw"/"NR - (r + qw)}')
+    ;;
+  *)
+    cmd="condor_q"
+    new_status=$(ssh $1@$2 ${cmd} | grep "Total for $1")
+    all=$(echo ${new_status} | sed 's/.*: \(.*\) jobs.*/\1/')
+    r=$(echo ${new_status} | sed 's/.*idle, \(.*\) running.*/\1/')
+    qw=$(echo ${new_status} | sed 's/.*removed, \(.*\) idle.*/\1/')
+    new_status=${r}/${qw}/$(( $all - $r - $qw ))
+    ;;
+esac
+
 log_status=/tmp/qsurvey_status_$2.log
 test -f ${log_status} && old_status=$(cat ${log_status}) || old_status="0/0/0"
 echo ${new_status} > ${log_status}
 
-if [[ $2 = "cca.in2p3.fr" ]]; then
-  cluster="CC-IN2P3"
-else
-  cluster="RUCHE"
-fi
+case $2 in
+  ruche*)
+    cluster="RUCHE";;
+  cca*)
+    cluster="CC-IN2P3";;
+  ldas*)
+    cluster="caltech";;
+esac
+
 if [[ ${old_status} != ${new_status} ]]; then
   old=(${old_status//\// })
   new=(${new_status//\// })
