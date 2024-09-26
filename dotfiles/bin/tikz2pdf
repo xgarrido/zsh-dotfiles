@@ -234,7 +234,10 @@ while True:
                 if ec:
                     if out:
                         out.seek(0)
-                        sys.stdout.write(out.read())
+                        try:
+                            sys.stdout.write(out.read())
+                        except TypeError:
+                            pass
                         send_message("Error generating %r." % pdfName, "gtk-stop", options.quiet)
                 else:
                     send_message("Successfully generated %r." % pdfName, quiet=options.quiet)
