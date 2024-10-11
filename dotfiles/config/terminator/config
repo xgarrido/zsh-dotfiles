@@ -7,7 +7,7 @@
   scroll_tabbar = True
   inactive_color_offset = 0.654320987654
   enabled_plugins = CustomCommandsMenu, InactivityWatch, ActivityWatch, TerminalShot, APTURLHandler, Logger
-  suppress_multiple_term_dialog = True
+  ask_before_closing = never
   always_split_with_profile = True
 [keybindings]
   zoom_in = <Control>equal
