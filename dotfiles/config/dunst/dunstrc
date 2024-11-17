@@ -236,3 +236,9 @@ new_icon = networkmanager
 [transmission]
 body = "*torrent*"
 new_icon = transmission
+
+[mettermost rrt]
+summary = "*RRT (test)*"
+body = "*Channel created*"
+background = "#CF3434"
+timeout = -1
