@@ -16,6 +16,7 @@ antigen use oh-my-zsh
 antigen bundle git
 antigen bundle svn
 antigen bundle virtualenv
+antigen bundle conda-env
 antigen bundle pip
 
 # Syntax highlighting bundle.
@@ -29,6 +30,9 @@ antigen bundle zsh-users/zsh-autosuggestions
 
 # Zsh completion.
 antigen bundle zsh-users/zsh-completions
+
+# Zsh completion.
+antigen bundle conda-incubator/conda-zsh-completion@main
 
 # pkgtools library
 antigen bundle xgarrido/zsh-pkgtools
