@@ -1,17 +1,17 @@
-# ccin2p3:
-#   machine: cca.in2p3.fr
-#   login: garrido
-#   cmd: squeue -u garrido --noheader
+ccin2p3:
+  machine: cca.in2p3.fr
+  login: garrido
+  cmd: squeue -u garrido --noheader
 
-# ruche:
-#   machine: ruche.mesocentre.universite-paris-saclay.fr
-#   login: garridox
-#   cmd: squeue -u garridox
+ruche:
+  machine: ruche.mesocentre.universite-paris-saclay.fr
+  login: garridox
+  cmd: squeue -u garridox
 
-# caltech:
-#   machine: ldas-grid.ligo.caltech.edu
-#   login: xavier.garrido
-#   cmd: condor_q
+caltech:
+  machine: ldas-grid.ligo.caltech.edu
+  login: xavier.garrido
+  cmd: condor_q
 
 livingston:
   machine: ldas-grid.ligo-la.caltech.edu
