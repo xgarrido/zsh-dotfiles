@@ -1,6 +1,7 @@
 #!/bin/bash
 
 
+
 # Check connectivty
 error_svg=""
 ssh_connect=$(ssh $1@$2 echo)
@@ -36,8 +37,10 @@ case $2 in
     cluster="RUCHE";;
   cca*)
     cluster="CC-IN2P3";;
-  ldas*)
+  ligo*)
     cluster="caltech";;
+  ligo-la*)
+    cluster="livingston";;
 esac
 
 if [[ ${old_status} != ${new_status} ]]; then
