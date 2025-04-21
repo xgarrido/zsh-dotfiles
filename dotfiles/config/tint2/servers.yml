@@ -6,14 +6,13 @@ ccin2p3:
 ruche:
   machine: ruche.mesocentre.universite-paris-saclay.fr
   login: garridox
-  cmd: squeue -u garridox
+  cmd: squeue -u garridox --noheader
 
-caltech:
+caltech: &lvk
   machine: ldas-grid.ligo.caltech.edu
   login: xavier.garrido
-  cmd: condor_q
+  cmd: condor_q -autoformat JobStatus
 
 livingston:
+  <<: *lvk
   machine: ldas-grid.ligo-la.caltech.edu
-  login: xavier.garrido
-  cmd: condor_q -autoformat JobStatus

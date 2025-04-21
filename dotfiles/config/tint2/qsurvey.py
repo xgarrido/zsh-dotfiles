@@ -51,14 +51,6 @@ def main():
     with open(os.path.join(cwd, "servers.yml")) as f:
         servers = yaml.safe_load(f)
 
-    servers = {
-        "livingston": {
-            "machine": "ldas-grid.ligo-la.caltech.edu",
-            "login": "xavier.garrido",
-            "cmd": "condor_q -autoformat JobStatus",
-        }
-    }
-
     summary = []
     for server, meta in servers.items():
         cmd = "ssh {login}@{machine} {cmd}".format(**meta)
@@ -82,22 +74,23 @@ def main():
 
         # Send notification
         if old_state != new_state:
-            old = old_state.split("/")
-            new = new_state.split("/")
+            old = list(map(int, old_state.split("/")))
+            new = list(map(int, new_state.split("/")))
             if old[0] < new[0]:
-                send_notification(f"{new[0] - old[0]} jobs started @ {server}")
+                send_notification(f"{new[0]-old[0]} jobs started @ {server}")
             if old[0] > new[0]:
-                send_notification(f"{old[0]- new[0]} jobs stopped @ {server}")
+                send_notification(f"{old[0]-new[0]} jobs stopped @ {server}")
             if new[1] > 0:
                 send_notification(f"{new[1]} jobs currently waiting @ {server}")
 
         if total:
-            summary += [f"{server}\n{new_state}"]
+            summary += [(server, new_state)]
 
     if summary:
-        icon_path = os.path.join(cwd, "qsurvey.svg")
-        print(icon_path)
-        print(" | ".join(summary))
+        print(os.path.join(cwd, "qsurvey.svg"))
+        max_length = max(map(len, sum(summary, ()))) + 2
+        print(" ".join([f"{s[0]:^{max_length}}" for s in summary]))
+        print(" ".join([f"{s[1]:^{max_length}}" for s in summary]))
 
 
 if __name__ == "__main__":
