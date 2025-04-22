@@ -8,6 +8,7 @@ dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XA
 mkdir -p $XDG_RUNTIME_DIR/gvfsd-sftp
 
 xautolock -time 10 -locker slock &
+skippy-xd --start-daemon &
 
 #exec gnome-session
 exec openbox-session
