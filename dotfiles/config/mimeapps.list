@@ -1,9 +1,13 @@
 [Default Applications]
 x-scheme-handler/webcal=chromium.desktop
 application/pdf=evince.desktop
-text/html=chromium.desktop
+text/html=google-chrome.desktop
 x-scheme-handler/mailto=chromium.desktop
 x-scheme-handler/mattermost-dev=mattermost-desktop.desktop;
+x-scheme-handler/http=google-chrome.desktop
+x-scheme-handler/https=google-chrome.desktop
+x-scheme-handler/about=google-chrome.desktop
+x-scheme-handler/unknown=google-chrome.desktop
 
 [Added Associations]
 application/pdf=org.gnome.Evince.desktop;

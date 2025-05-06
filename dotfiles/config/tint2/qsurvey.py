@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import argparse
 import os
 import subprocess
 import tempfile
@@ -48,15 +49,33 @@ def parse_condor(result):
 
 
 def main():
+    parser = argparse.ArgumentParser(
+        description="A python script for monitoring HPC jobs",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    parser.add_argument(
+        "-d", "--debug", help="Enable debug level", default=False, action="store_true"
+    )
+    args = parser.parse_args()
+
     with open(os.path.join(cwd, "servers.yml")) as f:
         servers = yaml.safe_load(f)
 
     summary = []
     for server, meta in servers.items():
-        cmd = "ssh {login}@{machine} {cmd}".format(**meta)
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, check=True)
-        if not result:
-            continue
+        if args.debug:
+            print(server)
+
+        try:
+            cmd = "ssh {login}@{machine} {cmd}".format(**meta)
+            result = subprocess.run(
+                cmd, shell=True, capture_output=True, text=True, check=True, timeout=10
+            )
+            if not result:
+                continue
+        except subprocess.TimeoutExpired:
+            if args.debug:
+                print("Timeout !!")
 
         function = parse_squeue if "squeue" in meta.get("cmd") else parse_condor
         r, qw, total = function(result.stdout)
