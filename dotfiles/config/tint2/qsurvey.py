@@ -10,7 +10,7 @@ cwd = os.path.dirname(os.path.realpath(__file__))
 
 
 def send_notification(msg):
-    cmd = f"notify-send -i gnome-todo 'qsurvey' '{msg}'"
+    cmd = f"notify-send -i redhat-server_settings 'qsurvey' '{msg}'"
     result = subprocess.run(cmd, shell=True, capture_output=True, text=True, check=True)
 
 
