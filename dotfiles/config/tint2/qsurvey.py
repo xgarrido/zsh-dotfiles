@@ -107,9 +107,9 @@ def main():
 
     if summary:
         print(os.path.join(cwd, "qsurvey.svg"))
-        max_length = max(map(len, sum(summary, ()))) + 2
-        print(" ".join([f"{s[0]:^{max_length}}" for s in summary]))
-        print(" ".join([f"{s[1]:^{max_length}}" for s in summary]))
+        max_length = max(map(len, sum(summary, ())))
+        print(" ".join([s[0].center(max_length) for s in summary]))
+        print(" ".join([s[1].center(max_length) for s in summary]))
 
 
 if __name__ == "__main__":
