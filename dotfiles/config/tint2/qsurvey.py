@@ -16,7 +16,9 @@ def send_notification(msg):
 
 def parse_squeue(result):
     r, qw = 0, 0
-    for line in result:
+    for line in result.splitlines():
+        if line.isspace():
+            continue
         fields = line.strip().split()
         if fields[4] == "R":
             r += 1
@@ -76,6 +78,7 @@ def main():
         except subprocess.TimeoutExpired:
             if args.debug:
                 print("Timeout !!")
+            continue
 
         function = parse_squeue if "squeue" in meta.get("cmd") else parse_condor
         r, qw, total = function(result.stdout)
