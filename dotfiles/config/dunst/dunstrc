@@ -240,5 +240,7 @@ new_icon = transmission
 [mettermost rrt]
 #summary = "*RRT (test)*"
 body = "*Channel created*"
-background = "#CF3434"
+#background = "#CF3434"
+background = "#F8523F"
+new_icon = abrt
 timeout = -1
