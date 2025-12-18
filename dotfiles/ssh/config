@@ -1,7 +1,31 @@
-Host *
-ControlMaster auto
-ControlPath ~/.ssh/master-%r@%h:%p
+Host sshproxy
+  Hostname sshproxy.ligo.caltech.edu
+  User xavier.garrido
+  ControlMaster auto
+  ControlPersist 24h
+  ControlPath ~/.ssh/sockets/%r@%h:%p
+  GSSAPIAuthentication yes
+  GSSAPIDelegateCredentials yes
+
+Host ldas-*.ligo.caltech.edu citlogin*.ligo.caltech.edu
+  User xavier.garrido
+  ForwardAgent yes
+  GSSAPIAuthentication yes
+  GSSAPIDelegateCredentials yes
+  ProxyJump sshproxy
+
+Host uptermd.*.dev
+  ControlMaster no
+  ControlPath ~/.ssh/%%h-%%r
 
 Host tp-ssh*.dep-informatique.u-psud.fr
-RemoteCommand /home/tp-home006/xgarrid/.local/bin/zsh
-RequestTTY force
+  RemoteCommand /home/tp-home006/xgarrid/.local/bin/zsh
+  RequestTTY force
+
+Host perlmutter*
+  ControlMaster auto
+  ControlPath /run/user/1000/gvfsd-sftp/%C
+
+Host *
+  ControlMaster auto
+  ControlPath ~/.ssh/master-%r@%h:%p
