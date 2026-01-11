@@ -17,7 +17,7 @@ done
 # if ${kill}; then
 # fi
 
-/usr/bin/offlineimap $@
+PYTHONPYCACHEPREFIX=/home/garrido/.cache/cpython/ /usr/bin/offlineimap $@
 if [ $? -ne 0 ]; then
     notify-send -i mail-mark-important -u critical "error" "offlineimap check fails!"
 else
