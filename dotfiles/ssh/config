@@ -1,5 +1,14 @@
-Host sshproxy
+Host sshproxy.ligo.caltech.edu
   Hostname sshproxy.ligo.caltech.edu
+  User xavier.garrido
+  ControlMaster auto
+  ControlPersist 24h
+  ControlPath ~/.ssh/sockets/%r@%h:%p
+  GSSAPIAuthentication yes
+  GSSAPIDelegateCredentials yes
+
+Host sshproxy.ligo-la.caltech.edu
+  Hostname sshproxy.ligo-la.caltech.edu
   User xavier.garrido
   ControlMaster auto
   ControlPersist 24h
@@ -12,7 +21,14 @@ Host ldas-*.ligo.caltech.edu citlogin*.ligo.caltech.edu
   ForwardAgent yes
   GSSAPIAuthentication yes
   GSSAPIDelegateCredentials yes
-  ProxyJump sshproxy
+  ProxyJump sshproxy.ligo.caltech.edu
+
+Host ldas-*.ligo-la.caltech.edu
+  User xavier.garrido
+  ForwardAgent yes
+  GSSAPIAuthentication yes
+  GSSAPIDelegateCredentials yes
+  ProxyJump sshproxy.ligo-la.caltech.edu
 
 Host uptermd.*.dev
   ControlMaster no
