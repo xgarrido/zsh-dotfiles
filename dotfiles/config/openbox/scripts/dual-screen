@@ -4,35 +4,35 @@ screens=$(xrandr | awk '{if ($2 == "connected") print $1}')
 
 first_monitor=1
 for screen in ${screens}; do
-    # Get the best screen resolution
-    next_line=$(xrandr | awk '/'${screen}'/{getline; print}')
-    resolution=$(echo ${next_line} | awk '{print $1}')
-    current=$(echo ${next_line} | awk '{if ($2 ~ "*") print}')
-    echo "screen=$screen"
-    echo "next_line=$next_line"
-    echo "resolution=$resolution"
-    echo "current=$current"
+  # Get the best screen resolution
+  next_line=$(xrandr | awk '/'${screen}'/{getline; print}')
+  resolution=$(echo "${next_line}" | awk '{print $1}')
+  current=$(echo "${next_line}" | awk '{if ($2 ~ /\*/) print}')
+  echo "screen=$screen"
+  echo "next_line=$next_line"
+  echo "resolution=$resolution"
+  echo "current=$current"
 
 
-    if [[ "$current" != "" && $first_monitor -eq 1 ]]; then
-        echo "Monitor $screen is currently used"
-        if [ "$1" != "clone" ]; then
-            echo "Mode clone!"
-            xrandr --output ${screen} --off
-        fi
-        first_monitor=0
-    else
-        xrandr --output ${screen} --mode ${resolution}
+  if [[ "$current" != "" && $first_monitor -eq 1 ]]; then
+    echo "Monitor $screen is currently used"
+    if [ "$1" != "clone" ]; then
+      echo "Mode clone!"
+      xrandr --output ${screen} --off
     fi
+    first_monitor=0
+  else
+    xrandr --output ${screen} --mode ${resolution}
+  fi
 
-    # Kill dunst and relaunch with different geometry
-    width=$(echo $resolution | awk -F'x' '{print $1/2}')
-    height=$(echo $resolution | awk -F'x' '{print $2}')
-    x=$(($width - 250))
-    echo $width $height $x
-    # sed -i -e 's/geometry = \(.*\)/geometry = "400x15+'$x'+0"/' ~/.config/dunst/dunstrc
-    killall dunst
-    dunst &
+  # Kill dunst and relaunch with different geometry
+  width=$(echo $resolution | awk -F'x' '{print $1/2}')
+  height=$(echo $resolution | awk -F'x' '{print $2}')
+  x=$(($width - 250))
+  echo $width $height $x
+  # sed -i -e 's/geometry = \(.*\)/geometry = "400x15+'$x'+0"/' ~/.config/dunst/dunstrc
+  killall dunst
+  dunst &
 done
 
 # Disable beep
