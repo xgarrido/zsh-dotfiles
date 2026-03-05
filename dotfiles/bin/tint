@@ -1,0 +1,6 @@
+#!/bin/bash
+
+killall tint2
+
+tint2 &
+tint2 -c /home/garrido/.config/tint2/psuinfo-bottom-icons.tint2rc &
