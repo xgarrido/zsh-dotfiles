@@ -1,10 +1,10 @@
-file:///home/garrido/Teachdir
-file:///home/garrido/Workdir
-file:///home/garrido/Documents
+file:///home/garrido/Teachdir Teachdir
+file:///home/garrido/Workdir Workdir
+file:///home/garrido/Documents Documents
 sftp://xgarrido@ssh-ubuntu1.ijclab.in2p3.fr/users/nemo/garrido ijclab
 sftp://xgarrido@perlmutter.nersc.gov/global/u2/x/xgarrido nersc
 sftp://garrido@cca.in2p3.fr/pbs/home/g/garrido lyon
-sftp://rpi@xgarrido.hd.free.fr/home/rpi rpi
 sftp://xavier.garrido@ldas-grid.ligo.caltech.edu/home/xavier.garrido caltech
 sftp://garridox@ruche.mesocentre.universite-paris-saclay.fr/gpfs/users/garridox ruche
+sftp://rpi@xgarrido.hd.free.fr/home/rpi rpi
 sftp://root@egarrido.hopto.org/var/media eric
