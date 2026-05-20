@@ -6,7 +6,7 @@
   tab_position = bottom
   scroll_tabbar = True
   inactive_color_offset = 0.654320987654
-  enabled_plugins = CustomCommandsMenu, InactivityWatch, ActivityWatch, TerminalShot, APTURLHandler, Logger
+  enabled_plugins = Logger, TerminalShot, CustomCommandsMenu, APTURLHandler, ActivityWatch, InactivityWatch, TabColorByHost
   ask_before_closing = never
   always_split_with_profile = True
 [keybindings]

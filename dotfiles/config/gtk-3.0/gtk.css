@@ -11,7 +11,9 @@
 }
 
 .terminator-terminal-window notebook tab:checked {
-    background-color: #5294E2;
+  /* background-color: #5294E2; */
+  border-bottom: 2px solid white;
+  font-weight: bold;
 }
 
 .terminator-terminal-window notebook tab button {
